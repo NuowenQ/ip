@@ -30,6 +30,14 @@ public class List {
         return this.list.size();
     }
 
+    public String RemoveByRank(int rank) {
+        String message = "Noted. I've removed this task:\n";
+        message += this.list.get(rank).toString();
+        this.list.remove(rank);
+        message += "\nNow you have " + this.getNumberOfTasks() + " tasks in the list.";
+        return message;
+    }
+
     public String AddToDoItem(String itemName) {
         String message = "Got it. I've added this task:\n";
         ToDoTask item = new ToDoTask(itemName);

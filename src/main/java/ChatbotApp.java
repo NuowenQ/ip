@@ -27,6 +27,8 @@ public class ChatbotApp {
                     bot.MarkAsDone(Integer.parseInt(inputs[1]));
                 } else if  (inputs[0].equals("unmark")) {
                     bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
+                } else if (inputs[0].equals("delete")) {
+                    bot.RemoveTaskFromList(Integer.parseInt(inputs[1]));
                 } else if (inputs[0].equals("todo")) {
                         try {
                             if (input.length() <= "todo".length()) {

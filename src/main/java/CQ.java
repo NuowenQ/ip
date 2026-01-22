@@ -28,6 +28,10 @@ public class CQ {
         ConstructMessage(message);
     }
 
+    public void RemoveTaskFromList(int rank) {
+        ConstructMessage(cqlist.RemoveByRank(rank - 1));
+    }
+
     public void AddDeadlineToList(String userInput, String DeadLine) {
         String message = cqlist.AddDeadlineItem(userInput, DeadLine.substring(3));
         ConstructMessage(message);
