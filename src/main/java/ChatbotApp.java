@@ -18,28 +18,60 @@ public class ChatbotApp {
             String input = sc.nextLine();
             String[] inputs =  input.split(" ");
 
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                this.bot.ListItems();
-            } else if (inputs[0].equals("mark")) {
-                bot.MarkAsDone(Integer.parseInt(inputs[1]));
-            } else if  (inputs[0].equals("unmark")) {
-                bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
-            } else {
-                if (inputs[0].equals("todo")) {
-                    bot.AddToDoToList(input.substring(inputs[0].length() + 1));
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    this.bot.ListItems();
+                } else if (inputs[0].equals("mark")) {
+                    bot.MarkAsDone(Integer.parseInt(inputs[1]));
+                } else if  (inputs[0].equals("unmark")) {
+                    bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
+                } else if (inputs[0].equals("todo")) {
+                        try {
+                            if (input.length() <= "todo".length()) {
+                                throw new IncompleteDescriptionException("The description for todo is empty");
+                            }
+
+                            String description = input.substring("todo".length()).trim();
+
+                            if (description.isEmpty()) {
+                                throw new IncompleteDescriptionException("The description for todo is empty");
+                            }
+                            bot.AddToDoToList(input.substring(inputs[0].length() + 1));
+                        } catch (IncompleteDescriptionException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } else if (inputs[0].equals("deadline")) {
+                        try {
+                            String subString = input.substring(inputs[0].length() + 1);
+                            String[] subStrings = subString.split(" /");
+                            if (subStrings.length != 2) {
+                                throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
+                            }
+                            bot.AddDeadlineToList(subStrings[0], subStrings[1]);
+                        }  catch (IncompleteDescriptionException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } else if (inputs[0].equals("event")) {
+                        try {
+                            String subString = input.substring(inputs[0].length() + 1);
+                            String[] subStrings = subString.split(" /");
+                            if (subStrings.length != 3) {
+                                throw new IncompleteDescriptionException("Incorrect description format for event task!");
+                            }
+                            bot.AddEventToList(subStrings[0], subStrings[1], subStrings[2]); // Change to override method in the future.
+                        } catch (IncompleteDescriptionException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } else {
+                    throw new InvalidInputException("Invalid input ! :(");
                 }
-                if (inputs[0].equals("deadline")) {
-                    String subString = input.substring(inputs[0].length() + 1);
-                    String[] subStrings = subString.split(" /");
-                    bot.AddDeadlineToList(subStrings[0], subStrings[1]);
-                }
-                if (inputs[0].equals("event")) {
-                    String subString = input.substring(inputs[0].length() + 1);
-                    String[] subStrings = subString.split(" /");
-                    bot.AddEventToList(subStrings[0], subStrings[1], subStrings[2]);
-                }
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
             }
         }
         this.bot.Bye();
