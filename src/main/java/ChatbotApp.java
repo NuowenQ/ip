@@ -16,10 +16,13 @@ public class ChatbotApp {
 
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            bot.Echo(input);
+            if (input.equals("list")) {
+                this.bot.ListItems();
+            } else {
+                bot.AddToList(input);
+            }
             input = sc.nextLine();
         }
-
         this.bot.Bye();
     }
 
