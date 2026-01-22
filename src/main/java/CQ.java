@@ -18,20 +18,18 @@ public class CQ {
         this.ConstructMessage(message);
     }
 
-    public void Echo(String userInput) {
-        String message = userInput;
-        this.ConstructMessage(message);
-    }
+//    public void Echo(String userInput) {
+//        this.ConstructMessage(userInput);
+//    }
 
     public void AddToList(String userInput) {
-        String item = userInput;
-        System.out.println("____________________________________________________________");
-        cqlist.AddItem(item);
-        System.out.println("____________________________________________________________");
+        String message = cqlist.AddItem(userInput);
+        ConstructMessage(message);
     }
 
     public void ListItems() {
-        this.ConstructListMessage();
+        String message = cqlist.toString();
+        this.ConstructMessage(message);
     }
 
     public void ConstructMessage(String message) {
@@ -39,11 +37,4 @@ public class CQ {
         System.out.println(message);
         System.out.println("____________________________________________________________");
     }
-
-    public void ConstructListMessage() {
-        System.out.println("____________________________________________________________");
-        cqlist.DisplayItems();
-        System.out.println("____________________________________________________________");
-    }
-
 }

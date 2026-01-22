@@ -4,24 +4,33 @@ public class List {
     ArrayList<String> list;
 
     public List() {
-        this.list = new ArrayList<String>();
+        this.list = new ArrayList<>();
     }
 
-    public void AddItem(String item) {
-        System.out.println("added: " + item);
+    public String AddItem(String item) {
+        String message = "added: " + item;
         this.list.add(item);
+        return message;
     }
 
-    public void DisplayItems() {
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
         int counter = 1;
 
         if (this.list.isEmpty()) {
-            System.out.println("No items in list");
+            return "No items in list";
         }
 
-        for (String item : this.list) {
-            System.out.println(counter + ". " + item);
+        for (int i = 0; i < this.list.size(); i++) {
+            if (!(i == this.list.size() - 1)) {
+                builder.append(counter).append(". ").append(this.list.get(i)).append("\n");
+            } else {
+                builder.append(counter).append(". ").append(this.list.get(i));
+            }
             counter++;
         }
+
+        return builder.toString();
     }
 }
