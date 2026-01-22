@@ -16,6 +16,11 @@ public class CQ {
         this.ConstructMessage(message);
     }
 
+    public void Echo(String userInput) {
+        String message = userInput;
+        this.ConstructMessage(message);
+    }
+
     public void ConstructMessage(String message) {
         System.out.println("____________________________________________________________");
         System.out.println(message);
