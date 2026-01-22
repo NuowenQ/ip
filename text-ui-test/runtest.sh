@@ -9,7 +9,7 @@ fi
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
-    rm ACTUAL.TXT
+    rm EXPECTEDD.TXT
 fi
 
 # compile the code into the bin folder, terminates if error occurred
@@ -20,14 +20,14 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin Duke < input.txt > EXPECTEDD.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+dos2unix EXPECTEDD.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
+diff EXPECTEDD.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"

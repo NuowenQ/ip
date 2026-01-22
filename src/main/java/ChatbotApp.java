@@ -14,7 +14,7 @@ public class ChatbotApp {
         this.ShowHeader();
         this.bot.Greet();
 
-        while (true) {
+        while (sc.hasNextLine()) {
             String input = sc.nextLine();
             String[] inputs =  input.split(" ");
 
