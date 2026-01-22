@@ -18,18 +18,23 @@ public class CQ {
         this.ConstructMessage(message);
     }
 
-//    public void Echo(String userInput) {
-//        this.ConstructMessage(userInput);
-//    }
-
     public void AddToList(String userInput) {
         String message = cqlist.AddItem(userInput);
         ConstructMessage(message);
     }
 
     public void ListItems() {
-        String message = cqlist.toString();
+        String message = "Here are the tasks in your list:\n";
+        message += cqlist.toString();
         this.ConstructMessage(message);
+    }
+
+    public void MarkAsDone(int rank) {
+        ConstructMessage(cqlist.ListSetAsDone(rank - 1));
+    }
+
+    public void MarkAsNotDone(int rank) {
+        ConstructMessage(cqlist.ListSetAsNotDone(rank - 1));
     }
 
     public void ConstructMessage(String message) {

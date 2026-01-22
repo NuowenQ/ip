@@ -14,14 +14,21 @@ public class ChatbotApp {
         this.ShowHeader();
         this.bot.Greet();
 
-        String input = sc.nextLine();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
+        while (true) {
+            String input = sc.nextLine();
+            String[] inputs =  input.split(" ");
+
+            if (input.equals("bye")) {
+                break;
+            } else if (input.equals("list")) {
                 this.bot.ListItems();
+            } else if (inputs[0].equals("mark")) {
+                bot.MarkAsDone(Integer.parseInt(inputs[1]));
+            } else if  (inputs[0].equals("unmark")) {
+                bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
             } else {
                 bot.AddToList(input);
             }
-            input = sc.nextLine();
         }
         this.bot.Bye();
     }
