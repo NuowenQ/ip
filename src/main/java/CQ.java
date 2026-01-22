@@ -23,6 +23,21 @@ public class CQ {
         ConstructMessage(message);
     }
 
+    public void AddToDoToList(String userInput) {
+        String message = cqlist.AddToDoItem(userInput);
+        ConstructMessage(message);
+    }
+
+    public void AddDeadlineToList(String userInput, String DeadLine) {
+        String message = cqlist.AddDeadlineItem(userInput, DeadLine.substring(3));
+        ConstructMessage(message);
+    }
+
+    public void AddEventToList(String userInput, String StartDate, String EndDate) {
+        String message = cqlist.AddEventItem(userInput, StartDate.substring(5), EndDate.substring(4));
+        ConstructMessage(message);
+    }
+
     public void ListItems() {
         String message = "Here are the tasks in your list:\n";
         message += cqlist.toString();

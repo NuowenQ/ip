@@ -26,6 +26,37 @@ public class List {
         return message;
     }
 
+    public int getNumberOfTasks() {
+        return this.list.size();
+    }
+
+    public String AddToDoItem(String itemName) {
+        String message = "Got it. I've added this task:\n";
+        ToDoTask item = new ToDoTask(itemName);
+        message += item.toString() + "\n";
+        this.list.add(item);
+        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
+        return message;
+    }
+
+    public String AddDeadlineItem(String itemName, String DeadLine) {
+        String message = "Got it. I've added this task:\n";
+        DeadlineTask item = new DeadlineTask(itemName, DeadLine);
+        message += item.toString() + "\n";
+        this.list.add(item);
+        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
+        return message;
+    }
+
+    public String AddEventItem(String itemName, String StartDate, String EndDate) {
+        String message = "Got it. I've added this task:\n";
+        EventTask item = new EventTask(itemName, StartDate, EndDate);
+        message += item.toString() + "\n";
+        this.list.add(item);
+        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
+        return message;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

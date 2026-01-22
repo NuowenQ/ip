@@ -27,7 +27,19 @@ public class ChatbotApp {
             } else if  (inputs[0].equals("unmark")) {
                 bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
             } else {
-                bot.AddToList(input);
+                if (inputs[0].equals("todo")) {
+                    bot.AddToDoToList(input.substring(inputs[0].length() + 1));
+                }
+                if (inputs[0].equals("deadline")) {
+                    String subString = input.substring(inputs[0].length() + 1);
+                    String[] subStrings = subString.split(" /");
+                    bot.AddDeadlineToList(subStrings[0], subStrings[1]);
+                }
+                if (inputs[0].equals("event")) {
+                    String subString = input.substring(inputs[0].length() + 1);
+                    String[] subStrings = subString.split(" /");
+                    bot.AddEventToList(subStrings[0], subStrings[1], subStrings[2]);
+                }
             }
         }
         this.bot.Bye();
