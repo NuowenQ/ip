@@ -1,4 +1,6 @@
-public class Task {
+// Need to add get type.
+
+abstract public class Task {
     String name;
     boolean completeStatus;
 
@@ -6,6 +8,8 @@ public class Task {
         this.name = name;
         this.completeStatus = false;
     }
+
+    public abstract String getTaskType();
 
     public String getName() {
         return this.name;

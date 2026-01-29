@@ -12,6 +12,19 @@ public class EventTask extends Task {
         return "(from: " + this.StartDate + " to: " + this.EndDate + ")";
     }
 
+    public String getStartDate() {
+        return this.StartDate;
+    }
+
+    public String getEndDate() {
+        return this.EndDate;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "EventTask";
+    }
+
     @Override
     public String toString() {
         String text = "[E]";
