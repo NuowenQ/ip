@@ -126,7 +126,7 @@ public class List {
 
                 case "DeadlineTask":
                     DeadlineTask deadlineTask = (DeadlineTask) task;
-                    line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadline();
+                    line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadLineForFile();
                     break;
 
                 case "EventTask":

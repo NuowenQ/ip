@@ -1,13 +1,19 @@
-public class DeadlineTask extends Task {
-    String Deadline;
+import java.time.LocalDate;
 
-    public DeadlineTask(String name, String Deadline) {
+public class DeadlineTask extends Task {
+    LocalDate deadLine;
+
+    public DeadlineTask(String name, String deadLine) {
         super(name);
-        this.Deadline = Deadline;
+        this.deadLine = LocalDate.parse(deadLine, Task.INPUT_FORMATER);
     }
 
-    public String getDeadline() {
-        return "(by: " + this.Deadline + ")";
+    public String getDeadLine() {
+        return "(by: " + this.deadLine.format(Task.OUTPUT_FORMATER) + ")";
+    }
+
+    public String getDeadLineForFile() {
+        return this.deadLine.format(Task.INPUT_FORMATER);
     }
 
     @Override
@@ -18,7 +24,7 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         String text = "[D]";
-        text += super.toString() + " " + this.getDeadline();
+        text += super.toString() + " " + this.getDeadLine();
         return text;
     }
 }

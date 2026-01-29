@@ -20,11 +20,6 @@ public class Cq {
         this.constructMessage(message);
     }
 
-//    public void addToList(String userInput) { // Maybe here can do an additional check for types.
-//        String message = cqlist.AddItem(userInput);
-//        constructMessage(message);
-//    }
-
     public void addToDoToList(String userInput) {
         String message = cqlist.AddToDoItem(userInput);
         constructMessage(message);
@@ -40,7 +35,7 @@ public class Cq {
     }
 
     public void addEventToList(String userInput, String startDate, String endDate) {
-        String message = cqlist.AddEventItem(userInput, startDate.substring(5), endDate.substring(4));
+        String message = cqlist.AddEventItem(userInput, startDate.substring(5), endDate.substring(3));
         constructMessage(message);
     }
 
