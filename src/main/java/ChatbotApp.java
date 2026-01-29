@@ -1,18 +1,18 @@
 import java.util.Scanner;
 
 public class ChatbotApp {
-    public CQ bot;
+    public Cq bot;
     Scanner sc;
 
     public ChatbotApp() {
-        this.bot = new CQ();
+        this.bot = new Cq();
         this.sc = new Scanner(System.in);
     }
 
     // Overall orchestration logic
     public void run() {
-        this.ShowHeader();
-        this.bot.Greet();
+        this.showHeader();
+        this.bot.greet();
 
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
@@ -22,13 +22,13 @@ public class ChatbotApp {
                 if (input.equals("bye")) {
                     break;
                 } else if (input.equals("list")) {
-                    this.bot.ListItems();
+                    this.bot.listItems();
                 } else if (inputs[0].equals("mark")) {
-                    bot.MarkAsDone(Integer.parseInt(inputs[1]));
+                    bot.markAsDone(Integer.parseInt(inputs[1]));
                 } else if  (inputs[0].equals("unmark")) {
-                    bot.MarkAsNotDone(Integer.parseInt(inputs[1]));
+                    bot.markAsNotDone(Integer.parseInt(inputs[1]));
                 } else if (inputs[0].equals("delete")) {
-                    bot.RemoveTaskFromList(Integer.parseInt(inputs[1]));
+                    bot.removeTaskFromList(Integer.parseInt(inputs[1]));
                 } else if (inputs[0].equals("todo")) {
                         try {
                             if (input.length() <= "todo".length()) {
@@ -40,7 +40,7 @@ public class ChatbotApp {
                             if (description.isEmpty()) {
                                 throw new IncompleteDescriptionException("The description for todo is empty");
                             }
-                            bot.AddToDoToList(input.substring(inputs[0].length() + 1));
+                            bot.addToDoToList(input.substring(inputs[0].length() + 1));
                         } catch (IncompleteDescriptionException e) {
                             System.out.println(e.getMessage());
                         }
@@ -52,7 +52,7 @@ public class ChatbotApp {
                             if (subStrings.length != 2) {
                                 throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
                             }
-                            bot.AddDeadlineToList(subStrings[0], subStrings[1]);
+                            bot.addDeadlineToList(subStrings[0], subStrings[1]);
                         }  catch (IncompleteDescriptionException e) {
                             System.out.println(e.getMessage());
                         }
@@ -64,7 +64,7 @@ public class ChatbotApp {
                             if (subStrings.length != 3) {
                                 throw new IncompleteDescriptionException("Incorrect description format for event task!");
                             }
-                            bot.AddEventToList(subStrings[0], subStrings[1], subStrings[2]); // Change to override method in the future.
+                            bot.addEventToList(subStrings[0], subStrings[1], subStrings[2]); // Change to override method in the future.
                         } catch (IncompleteDescriptionException e) {
                             System.out.println(e.getMessage());
                         }
@@ -76,10 +76,10 @@ public class ChatbotApp {
                 System.out.println(e.getMessage());
             }
         }
-        this.bot.Bye();
+        this.bot.bye();
     }
 
-    public void ShowHeader() {
+    public void showHeader() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
