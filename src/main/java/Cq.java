@@ -5,6 +5,7 @@ public class Cq {
     public Cq() {
         this.name = "CQ";
         this.cqlist = new List();
+        this.cqlist.loadDataFromFile();
     }
 
     public void greet() {

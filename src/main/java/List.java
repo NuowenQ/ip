@@ -1,10 +1,95 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class List {
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = "./data/cq.txt";
+
     ArrayList<Task> list;
 
     public List() {
         this.list = new ArrayList<>();
+    }
+
+    public void loadDataFromFile() {
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            return;
+        }
+
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return;
+        }
+
+        try {
+            java.util.List<String> lines = Files.readAllLines(file.toPath());
+            for (String line : lines) {
+                Task task = parseTaskFromLine(line);
+                if (task != null) {
+                    this.list.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    public Task parseTaskFromLine(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+            if (parts.length < 3 || parts.length > 5) {
+                return null;
+            }
+
+            String taskType = parts[0].trim();
+            boolean isDone = parts[1].trim().equals("1");
+            String name =  parts[2].trim();
+
+            Task task;
+            switch(taskType) {
+                case "T":
+                    if (parts.length != 3) {
+                        return null;
+                    }
+
+                    task = new ToDoTask(name);
+                    break;
+
+                case "D":
+                    if (parts.length != 4) {
+                        return null;
+                    }
+
+                    String deadLine = parts[3].trim();
+                    task = new DeadlineTask(name, deadLine);
+                    break;
+
+                case "E":
+                    if (parts.length != 5) {
+                        return null;
+                    }
+
+                    String startDate = parts[3].trim();
+                    String endDate = parts[4].trim();
+                    task = new EventTask(name, startDate, endDate);
+                    break;
+                default:
+                    return null;
+            }
+
+            if (isDone) {
+                task.setAsComplete();
+            }
+
+            return task;
+
+        } catch (Exception e) {
+            System.out.println("Error parsing line: " + e.getMessage());
+            return null;
+        }
     }
 
     public String AddItem(String itemName) {
