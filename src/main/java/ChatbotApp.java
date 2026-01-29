@@ -11,7 +11,7 @@ public class ChatbotApp {
 
     // Overall orchestration logic
     public void run() {
-        this.showHeader();
+        Ui.showHeader();
         this.bot.greet();
 
         while (sc.hasNextLine()) {
@@ -42,7 +42,7 @@ public class ChatbotApp {
                             }
                             bot.addToDoToList(input.substring(inputs[0].length() + 1));
                         } catch (IncompleteDescriptionException e) {
-                            System.out.println(e.getMessage());
+                            this.bot.showMessage(e.getMessage());
                         }
 
                     } else if (inputs[0].equals("deadline")) {
@@ -54,7 +54,7 @@ public class ChatbotApp {
                             }
                             bot.addDeadlineToList(subStrings[0], subStrings[1]);
                         }  catch (IncompleteDescriptionException e) {
-                            System.out.println(e.getMessage());
+                            this.bot.showMessage(e.getMessage());
                         }
 
                     } else if (inputs[0].equals("event")) {
@@ -66,25 +66,16 @@ public class ChatbotApp {
                             }
                             bot.addEventToList(subStrings[0], subStrings[1], subStrings[2]); // Change to override method in the future.
                         } catch (IncompleteDescriptionException e) {
-                            System.out.println(e.getMessage());
+                            this.bot.showMessage(e.getMessage());
                         }
 
                     } else {
                     throw new InvalidInputException("Invalid input ! :(");
                 }
             } catch (InvalidInputException e) {
-                System.out.println(e.getMessage());
+                this.bot.showMessage(e.getMessage());
             }
         }
         this.bot.bye();
-    }
-
-    public void showHeader() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
     }
 }
