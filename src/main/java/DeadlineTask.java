@@ -11,6 +11,11 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public String getTaskType() {
+        return "DeadlineTask";
+    }
+
+    @Override
     public String toString() {
         String text = "[D]";
         text += super.toString() + " " + this.getDeadline();

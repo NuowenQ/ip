@@ -15,14 +15,15 @@ public class Cq {
     }
 
     public void bye() {
+        cqlist.linesToFile();
         String message = "Bye. Hope to see you again soon!";
         this.constructMessage(message);
     }
 
-    public void addToList(String userInput) { // Maybe here can do an additional check for types.
-        String message = cqlist.AddItem(userInput);
-        constructMessage(message);
-    }
+//    public void addToList(String userInput) { // Maybe here can do an additional check for types.
+//        String message = cqlist.AddItem(userInput);
+//        constructMessage(message);
+//    }
 
     public void addToDoToList(String userInput) {
         String message = cqlist.AddToDoItem(userInput);

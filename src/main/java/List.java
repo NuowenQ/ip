@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class List {
@@ -92,11 +94,54 @@ public class List {
         }
     }
 
-    public String AddItem(String itemName) {
-        String message = "added: " + itemName;
-        Task item = new Task(itemName);
-        this.list.add(item);
-        return message;
+    public void linesToFile() {
+        try {
+            Files.createDirectories(Path.of(DIRECTORY_PATH));
+
+            ArrayList<String> lines = taskToLines();
+            Files.write(Paths.get(FILE_PATH), lines);
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<String> taskToLines() {
+        ArrayList<String> lines = new ArrayList<>();
+
+        for (Task task : this.list) {
+            String status;
+            String taskType = task.getTaskType();
+            String line;
+
+            if (task.getCompleteStatus()) {
+                status = "1";
+            } else {
+                status = "0";
+            }
+
+            switch(taskType) {
+                case "ToDoTask": //T | 1 | read book
+                    line = "T | " + status + " | " + task.getName();
+                    break;
+
+                case "DeadlineTask":
+                    DeadlineTask deadlineTask = (DeadlineTask) task;
+                    line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadline();
+                    break;
+
+                case "EventTask":
+                    EventTask eventTask = (EventTask) task;
+                    line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | " + eventTask.getEndDate();
+                    break;
+
+                default:
+                    continue;
+            }
+
+            lines.add(line);
+        }
+
+        return lines;
     }
 
     public String ListSetAsDone(int rank) {
