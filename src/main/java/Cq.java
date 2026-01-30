@@ -1,12 +1,15 @@
+import java.util.ArrayList;
+
 public class Cq {
     private Ui ui;
     String name;
-    List cqlist;
+    Storage storage;
+    TaskList cqlist;
 
     public Cq() {
         this.name = "CQ";
-        this.cqlist = new List();
-        this.cqlist.loadDataFromFile();
+        this.storage = new Storage();
+        this.cqlist = new TaskList(storage.loadDataFromFile());
         this.ui = new Ui();
     }
 
@@ -17,7 +20,7 @@ public class Cq {
     }
 
     public void bye() {
-        cqlist.linesToFile();
+        this.storage.linesToFile(cqlist.getList());
         String message = "Bye. Hope to see you again soon!";
         ui.constructMessage(message);
     }
