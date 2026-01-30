@@ -1,3 +1,5 @@
+package cq;
+
 public class Parser {
 
     public enum CommandType {

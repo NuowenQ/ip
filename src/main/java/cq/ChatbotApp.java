@@ -1,3 +1,5 @@
+package cq;
+
 import java.util.Scanner;
 
 public class ChatbotApp {

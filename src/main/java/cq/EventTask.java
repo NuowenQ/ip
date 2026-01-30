@@ -1,3 +1,5 @@
+package cq;
+
 import java.time.LocalDate;
 
 public class EventTask extends Task {
@@ -24,7 +26,7 @@ public class EventTask extends Task {
 
     @Override
     public String getTaskType() {
-        return "EventTask";
+        return "cq.EventTask";
     }
 
     @Override

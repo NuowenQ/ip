@@ -1,3 +1,5 @@
+package cq;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -118,16 +120,16 @@ public class Storage {
             }
 
             switch(taskType) {
-                case "ToDoTask": //T | 1 | read book
+                case "cq.ToDoTask": //T | 1 | read book
                     line = "T | " + status + " | " + task.getName();
                     break;
 
-                case "DeadlineTask":
+                case "cq.DeadlineTask":
                     DeadlineTask deadlineTask = (DeadlineTask) task;
                     line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadLineForFile();
                     break;
 
-                case "EventTask":
+                case "cq.EventTask":
                     EventTask eventTask = (EventTask) task;
                     line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | " + eventTask.getEndDate();
                     break;

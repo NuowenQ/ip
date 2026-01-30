@@ -1,3 +1,5 @@
+package cq;
+
 public class Ui {
     public static void showHeader() {
         String logo = " ____        _        \n"
