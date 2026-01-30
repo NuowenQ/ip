@@ -61,4 +61,43 @@ public class Cq {
     public void showMessage(String message) {
         ui.constructMessage(message);
     }
+
+    public void handleTodo(String input) {
+        try {
+            String description = input.substring("todo".length()).trim();
+            if (description.isEmpty()) {
+                throw new IncompleteDescriptionException("The description for todo is empty");
+            }
+            addToDoToList(description);
+        } catch (IncompleteDescriptionException e) {
+            showMessage(e.getMessage());
+        }
+    }
+
+    public void handleDeadline(String input) {
+        try {
+            String subString = input.substring("deadline".length()).trim();
+            String[] subStrings = subString.split(" /");
+            if (subStrings.length != 2) {
+                throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
+            }
+            addDeadlineToList(subStrings[0], subStrings[1]);
+        } catch (IncompleteDescriptionException e) {
+            showMessage(e.getMessage());
+        }
+    }
+
+    public void handleEvent(String input) {
+        try {
+            String subString = input.substring("event".length()).trim();
+            String[] subStrings = subString.split(" /");
+            if (subStrings.length != 3) {
+                throw new IncompleteDescriptionException("Incorrect description format for event task!");
+            }
+            addEventToList(subStrings[0], subStrings[1], subStrings[2]);
+        } catch (IncompleteDescriptionException e) {
+            showMessage(e.getMessage());
+        }
+    }
+
 }
