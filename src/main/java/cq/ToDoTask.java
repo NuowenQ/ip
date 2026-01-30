@@ -1,3 +1,5 @@
+package cq;
+
 public class ToDoTask extends Task {
     public ToDoTask(String name) {
         super(name);
@@ -5,7 +7,7 @@ public class ToDoTask extends Task {
 
     @Override
     public String getTaskType() {
-        return "ToDoTask";
+        return "cq.ToDoTask";
     }
 
     @Override

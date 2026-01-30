@@ -1,3 +1,5 @@
+package cq;
+
 import java.time.LocalDate;
 
 public class DeadlineTask extends Task {
@@ -18,7 +20,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getTaskType() {
-        return "DeadlineTask";
+        return "cq.DeadlineTask";
     }
 
     @Override
