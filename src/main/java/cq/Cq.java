@@ -117,6 +117,17 @@ public class Cq {
     }
 
     /**
+     * Construct message to display matched tasks.
+     *
+     * @param keyWord key word to match the tasks.
+     */
+    public void findTask(String keyWord) {
+        String message = "Here are the matching tasks in your list:\n";
+        message += cqlist.findMatchedTasks(keyWord);
+        ui.constructMessage(message);
+    }
+
+    /**
      * Parses and adds a Todo task from user input.
      *
      * @param input the raw user input string

@@ -123,6 +123,33 @@ public class TaskList {
     }
 
     /**
+     * Returns a string message of tasks consists of all the
+     * tasks that match the key word.
+     *
+     * @param keyWord the key word that the user is searching.
+     * @return message in string format.
+     */
+    public String findMatchedTasks(String keyWord) {
+        ArrayList<Task> matchedResults = new ArrayList<>();
+
+        for (Task task : this.list) {
+            String name = task.getName();
+            if (name.contains(keyWord)) {
+                matchedResults.add(task);
+            }
+        }
+
+        String message = "";
+        int counter = 1;
+        for (Task task : matchedResults) {
+            message += counter + "." + task.toString() + "\n";
+            counter++;
+        }
+
+        return message.stripTrailing();
+    }
+
+    /**
      * Returns a string representation of all tasks in the list.
      *
      * @return the formatted task list, or "No items in list" if empty

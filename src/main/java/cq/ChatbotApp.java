@@ -55,6 +55,9 @@ public class ChatbotApp {
                 case EVENT:
                     bot.handleEvent(input);
                     break;
+                case FIND:
+                    bot.findTask(inputs[1]);
+                    break;
                 case INVALID:
                     throw new InvalidInputException("Invalid input! :(");
                 }
