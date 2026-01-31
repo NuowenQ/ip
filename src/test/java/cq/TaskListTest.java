@@ -18,15 +18,15 @@ public class TaskListTest {
 
     @Test
     public void addToDoItem_validName_increasesSize() {
-        taskList.AddToDoItem("read book");
+        taskList.addToDoItem("read book");
         assertEquals(1, taskList.getNumberOfTasks());
     }
 
     @Test
     public void removeByRank_decreasesSize() {
-        taskList.AddToDoItem("task 1");
-        taskList.AddToDoItem("task 2");
-        taskList.RemoveByRank(0);
+        taskList.addToDoItem("task 1");
+        taskList.addToDoItem("task 2");
+        taskList.removeByRank(0);
         assertEquals(1, taskList.getNumberOfTasks());
     }
 

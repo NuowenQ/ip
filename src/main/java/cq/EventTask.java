@@ -3,25 +3,25 @@ package cq;
 import java.time.LocalDate;
 
 public class EventTask extends Task {
-    LocalDate StartDate;
-    LocalDate EndDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     public EventTask(String name, String StartDate, String EndDate) {
         super(name);
-        this.StartDate = LocalDate.parse(StartDate, Task.INPUT_FORMATER);
-        this.EndDate = LocalDate.parse(EndDate, Task.INPUT_FORMATER);
+        this.startDate = LocalDate.parse(StartDate, Task.INPUT_FORMATTER);
+        this.endDate = LocalDate.parse(EndDate, Task.INPUT_FORMATTER);
     }
 
     public String getPeriod() {
-        return "(from: " + this.StartDate.format(Task.OUTPUT_FORMATER) + " to: " + this.EndDate.format(Task.OUTPUT_FORMATER) + ")";
+        return "(from: " + this.startDate.format(Task.OUTPUT_FORMATTER) + " to: " + this.endDate.format(Task.OUTPUT_FORMATTER) + ")";
     }
 
     public String getStartDate() {
-        return this.StartDate.format(Task.INPUT_FORMATER);
+        return this.startDate.format(Task.INPUT_FORMATTER);
     }
 
     public String getEndDate() {
-        return this.EndDate.format(Task.INPUT_FORMATER);
+        return this.endDate.format(Task.INPUT_FORMATTER);
     }
 
     @Override

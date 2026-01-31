@@ -1,10 +1,10 @@
 package cq;
 
 public class Cq {
-    private Ui ui;
-    String name;
-    Storage storage;
-    TaskList cqlist;
+    private final Ui ui;
+    private final String name;
+    private final Storage storage;
+    private final TaskList cqlist;
 
     public Cq() {
         this.name = "CQ";
@@ -26,21 +26,21 @@ public class Cq {
     }
 
     public void addToDoToList(String userInput) {
-        String message = cqlist.AddToDoItem(userInput);
+        String message = cqlist.addToDoItem(userInput);
         ui.constructMessage(message);
     }
 
     public void removeTaskFromList(int rank) {
-        ui.constructMessage(cqlist.RemoveByRank(rank - 1));
+        ui.constructMessage(cqlist.removeByRank(rank - 1));
     }
 
     public void addDeadlineToList(String userInput, String deadLine) {
-        String message = cqlist.AddDeadlineItem(userInput, deadLine.substring(3));
+        String message = cqlist.addDeadlineItem(userInput, deadLine.substring(3));
         ui.constructMessage(message);
     }
 
     public void addEventToList(String userInput, String startDate, String endDate) {
-        String message = cqlist.AddEventItem(userInput, startDate.substring(5), endDate.substring(3));
+        String message = cqlist.addEventItem(userInput, startDate.substring(5), endDate.substring(3));
         ui.constructMessage(message);
     }
 
@@ -51,11 +51,11 @@ public class Cq {
     }
 
     public void markAsDone(int rank) {
-        ui.constructMessage(cqlist.ListSetAsDone(rank - 1));
+        ui.constructMessage(cqlist.listSetAsDone(rank - 1));
     }
 
     public void markAsNotDone(int rank) {
-        ui.constructMessage(cqlist.ListSetAsNotDone(rank - 1));
+        ui.constructMessage(cqlist.listSetAsNotDone(rank - 1));
     }
 
     public void showMessage(String message) {
@@ -99,5 +99,4 @@ public class Cq {
             showMessage(e.getMessage());
         }
     }
-
 }

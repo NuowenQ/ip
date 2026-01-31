@@ -3,8 +3,8 @@ package cq;
 import java.util.Scanner;
 
 public class ChatbotApp {
-    public Cq bot;
-    Scanner sc;
+    private final Cq bot;
+    private final Scanner sc;
 
     public ChatbotApp() {
         this.bot = new Cq();
@@ -23,32 +23,32 @@ public class ChatbotApp {
 
             try {
                 switch (command) {
-                    case BYE:
-                        this.bot.bye();
-                        return;
-                    case LIST:
-                        this.bot.listItems();
-                        break;
-                    case MARK:
-                        bot.markAsDone(Integer.parseInt(inputs[1]));
-                        break;
-                    case UNMARK:
-                        bot.markAsNotDone(Integer.parseInt(inputs[1]));
-                        break;
-                    case DELETE:
-                        bot.removeTaskFromList(Integer.parseInt(inputs[1]));
-                        break;
-                    case TODO:
-                        bot.handleTodo(input);
-                        break;
-                    case DEADLINE:
-                        bot.handleDeadline(input);
-                        break;
-                    case EVENT:
-                        bot.handleEvent(input);
-                        break;
-                    case INVALID:
-                        throw new InvalidInputException("Invalid input! :(");
+                case BYE:
+                    this.bot.bye();
+                    return;
+                case LIST:
+                    this.bot.listItems();
+                    break;
+                case MARK:
+                    bot.markAsDone(Integer.parseInt(inputs[1]));
+                    break;
+                case UNMARK:
+                    bot.markAsNotDone(Integer.parseInt(inputs[1]));
+                    break;
+                case DELETE:
+                    bot.removeTaskFromList(Integer.parseInt(inputs[1]));
+                    break;
+                case TODO:
+                    bot.handleTodo(input);
+                    break;
+                case DEADLINE:
+                    bot.handleDeadline(input);
+                    break;
+                case EVENT:
+                    bot.handleEvent(input);
+                    break;
+                case INVALID:
+                    throw new InvalidInputException("Invalid input! :(");
                 }
             } catch (InvalidInputException e) {
                 this.bot.showMessage(e.getMessage());
