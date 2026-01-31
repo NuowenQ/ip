@@ -11,6 +11,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         INVALID
     }
 
@@ -35,6 +36,8 @@ public class Parser {
                 return CommandType.DEADLINE;
             case "event":
                 return CommandType.EVENT;
+            case "find":
+                return CommandType.FIND;
             default:
                 return CommandType.INVALID;
         }

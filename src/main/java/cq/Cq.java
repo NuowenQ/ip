@@ -62,6 +62,12 @@ public class Cq {
         ui.constructMessage(message);
     }
 
+    public void findTask(String keyWord) {
+        String message = "Here are the matching tasks in your list:\n";
+        message += cqlist.findMatchedTasks(keyWord);
+        ui.constructMessage(message);
+    }
+
     public void handleTodo(String input) {
         try {
             String description = input.substring("todo".length()).trim();

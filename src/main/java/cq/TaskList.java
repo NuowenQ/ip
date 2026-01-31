@@ -64,6 +64,26 @@ public class TaskList {
         return message;
     }
 
+    public String findMatchedTasks(String keyWord) {
+        ArrayList<Task> matchedResults = new ArrayList<>();
+
+        for (Task task : this.list) {
+            String name = task.getName();
+            if (name.contains(keyWord)) {
+                matchedResults.add(task);
+            }
+        }
+
+        String message = "";
+        int counter = 1;
+        for (Task task : matchedResults) {
+            message += counter + "." + task.toString() + "\n";
+            counter++;
+        }
+
+        return message.stripTrailing();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
