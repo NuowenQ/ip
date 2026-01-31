@@ -2,6 +2,11 @@ package cq;
 
 import java.util.Scanner;
 
+
+/**
+ * Main application class which handles user interaction
+ * with Cq chatbot through a command-line interface.
+ */
 public class ChatbotApp {
     public Cq bot;
     Scanner sc;
@@ -11,7 +16,10 @@ public class ChatbotApp {
         this.sc = new Scanner(System.in);
     }
 
-    // Overall orchestration logic
+    /**
+     * Runs a main input loop, continuously reading and processing
+     * user commands until "bye" is received.
+     */
     public void run() {
         Ui.showHeader();
         this.bot.greet();
