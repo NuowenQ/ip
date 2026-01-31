@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * A class that represents a deadline task.
  */
 public class DeadlineTask extends Task {
-    LocalDate deadLine;
+    private final LocalDate deadLine;
 
     /**
      * Constructs a DeadlineTask with the given description and deadline.
@@ -16,7 +16,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String name, String deadLine) {
         super(name);
-        this.deadLine = LocalDate.parse(deadLine, Task.INPUT_FORMATER);
+        this.deadLine = LocalDate.parse(deadLine, Task.INPUT_FORMATTER);
     }
 
     /**
@@ -25,7 +25,7 @@ public class DeadlineTask extends Task {
      * @return the deadline formatted as "(by: MMM dd yyyy)"
      */
     public String getDeadLine() {
-        return "(by: " + this.deadLine.format(Task.OUTPUT_FORMATER) + ")";
+        return "(by: " + this.deadLine.format(Task.OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -34,7 +34,7 @@ public class DeadlineTask extends Task {
      * @return the deadline in input file format
      */
     public String getDeadLineForFile() {
-        return this.deadLine.format(Task.INPUT_FORMATER);
+        return this.deadLine.format(Task.INPUT_FORMATTER);
     }
 
     /**

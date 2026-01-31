@@ -48,38 +48,38 @@ public class Storage {
 
             String taskType = parts[0].trim();
             boolean isDone = parts[1].trim().equals("1");
-            String name =  parts[2].trim();
+            String name = parts[2].trim();
 
             Task task;
-            switch(taskType) {
-                case "T":
-                    if (parts.length != 3) {
-                        return null;
-                    }
-
-                    task = new ToDoTask(name);
-                    break;
-
-                case "D":
-                    if (parts.length != 4) {
-                        return null;
-                    }
-
-                    String deadLine = parts[3].trim();
-                    task = new DeadlineTask(name, deadLine);
-                    break;
-
-                case "E":
-                    if (parts.length != 5) {
-                        return null;
-                    }
-
-                    String startDate = parts[3].trim();
-                    String endDate = parts[4].trim();
-                    task = new EventTask(name, startDate, endDate);
-                    break;
-                default:
+            switch (taskType) {
+            case "T":
+                if (parts.length != 3) {
                     return null;
+                }
+
+                task = new ToDoTask(name);
+                break;
+
+            case "D":
+                if (parts.length != 4) {
+                    return null;
+                }
+
+                String deadLine = parts[3].trim();
+                task = new DeadlineTask(name, deadLine);
+                break;
+
+            case "E":
+                if (parts.length != 5) {
+                    return null;
+                }
+
+                String startDate = parts[3].trim();
+                String endDate = parts[4].trim();
+                task = new EventTask(name, startDate, endDate);
+                break;
+            default:
+                return null;
             }
 
             if (isDone) {
@@ -119,23 +119,23 @@ public class Storage {
                 status = "0";
             }
 
-            switch(taskType) {
-                case "cq.ToDoTask": //T | 1 | read book
-                    line = "T | " + status + " | " + task.getName();
-                    break;
+            switch (taskType) {
+            case "cq.ToDoTask": //T | 1 | read book
+                line = "T | " + status + " | " + task.getName();
+                break;
 
-                case "cq.DeadlineTask":
-                    DeadlineTask deadlineTask = (DeadlineTask) task;
-                    line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadLineForFile();
-                    break;
+            case "cq.DeadlineTask":
+                DeadlineTask deadlineTask = (DeadlineTask) task;
+                line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadLineForFile();
+                break;
 
-                case "cq.EventTask":
-                    EventTask eventTask = (EventTask) task;
-                    line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | " + eventTask.getEndDate();
-                    break;
+            case "cq.EventTask":
+                EventTask eventTask = (EventTask) task;
+                line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | " + eventTask.getEndDate();
+                break;
 
-                default:
-                    continue;
+            default:
+                continue;
             }
 
             lines.add(line);

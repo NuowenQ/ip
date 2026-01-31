@@ -3,11 +3,11 @@ package cq;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-abstract public class Task {
-    protected static final DateTimeFormatter INPUT_FORMATER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    protected static final DateTimeFormatter OUTPUT_FORMATER = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
-    String name;
-    boolean completeStatus;
+public abstract class Task {
+    protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
+    private final String name;
+    private boolean completeStatus;
 
     public Task(String name) {
         this.name = name;

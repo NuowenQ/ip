@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A class that stores a list of tasks.
  */
 public class TaskList {
-    ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Constructs a TaskList with the given list of tasks.
@@ -32,7 +32,7 @@ public class TaskList {
      *@param rank the 0 indexed rank of the task.
      *@return the confirmation message.
      */
-    public String ListSetAsDone(int rank) {
+    public String listSetAsDone(int rank) {
         String message = this.list.get(rank).setAsComplete();
         message = "Nice! I've marked this task as done:\n" + message;
         return message;
@@ -44,7 +44,7 @@ public class TaskList {
      * @param rank the 0 indexed rank of the task.
      * @return the confirmation message
      */
-    public String ListSetAsNotDone(int rank) {
+    public String listSetAsNotDone(int rank) {
         String message = this.list.get(rank).setAsIncomplete();
         message = "OK, I've marked this task as not done yet:\n" + message;
         return message;
@@ -59,13 +59,14 @@ public class TaskList {
         return this.list.size();
     }
 
+
     /**
      * Removes a task from the list by rank.
      *
      * @param rank the 0 indexed rank of the task.
      * @return the confirmation message.
      */
-    public String RemoveByRank(int rank) {
+    public String removeByRank(int rank) {
         String message = "Noted. I've removed this task:\n";
         message += this.list.get(rank).toString();
         this.list.remove(rank);
@@ -79,7 +80,7 @@ public class TaskList {
      * @param itemName the task description.
      * @return the confirmation message.
      */
-    public String AddToDoItem(String itemName) {
+    public String addToDoItem(String itemName) {
         String message = "Got it. I've added this task:\n";
         ToDoTask item = new ToDoTask(itemName);
         message += item.toString() + "\n";
@@ -92,12 +93,12 @@ public class TaskList {
      * Adds a Deadline task to the list.
      *
      * @param itemName the task description.
-     * @param DeadLine the deadline in input date format.
+     * @param deadLine the deadline in input date format.
      * @return the confirmation message.
      */
-    public String AddDeadlineItem(String itemName, String DeadLine) {
+    public String addDeadlineItem(String itemName, String deadLine) {
         String message = "Got it. I've added this task:\n";
-        DeadlineTask item = new DeadlineTask(itemName, DeadLine);
+        DeadlineTask item = new DeadlineTask(itemName, deadLine);
         message += item.toString() + "\n";
         this.list.add(item);
         message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
@@ -108,13 +109,13 @@ public class TaskList {
      * Adds an Event task to the list.
      *
      * @param itemName the task description
-     * @param StartDate the start date of the event
-     * @param EndDate the end date of the event
+     * @param startDate the start date of the event
+     * @param endDate the end date of the event
      * @return the confirmation message
      */
-    public String AddEventItem(String itemName, String StartDate, String EndDate) {
+    public String addEventItem(String itemName, String startDate, String endDate) {
         String message = "Got it. I've added this task:\n";
-        EventTask item = new EventTask(itemName, StartDate, EndDate);
+        EventTask item = new EventTask(itemName, startDate, endDate);
         message += item.toString() + "\n";
         this.list.add(item);
         message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
