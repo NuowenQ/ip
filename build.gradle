@@ -15,6 +15,9 @@ dependencies {
 }
 
 test {
+
+
+
     useJUnitPlatform()
 
     testLogging {
@@ -38,4 +41,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '11.0.1'
 }

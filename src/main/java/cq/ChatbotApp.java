@@ -10,7 +10,11 @@ import java.util.Scanner;
 public class ChatbotApp {
     private final Cq bot;
     private final Scanner sc;
-
+    /**
+     * Constructs a new ChatbotApp instance.
+     * Initializes the chatbot engine and sets up the input scanner
+     * for reading user input from the console.
+     */
     public ChatbotApp() {
         this.bot = new Cq();
         this.sc = new Scanner(System.in);
@@ -60,6 +64,8 @@ public class ChatbotApp {
                     break;
                 case INVALID:
                     throw new InvalidInputException("Invalid input! :(");
+                default:
+                    throw new IllegalStateException("Unhandled command type: " + command);
                 }
             } catch (InvalidInputException e) {
                 this.bot.showMessage(e.getMessage());

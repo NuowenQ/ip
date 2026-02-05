@@ -29,8 +29,8 @@ public class TaskList {
     /**
      * Sets a task as done.
      *
-     *@param rank the 0 indexed rank of the task.
-     *@return the confirmation message.
+     * @param rank the 0 indexed rank of the task.
+     * @return the confirmation message.
      */
     public String listSetAsDone(int rank) {
         String message = this.list.get(rank).setAsComplete();

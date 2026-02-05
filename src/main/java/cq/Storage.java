@@ -7,11 +7,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks to storage.
+ * Tasks are stored in a text file with a predefined format.
+ */
 public class Storage {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/cq.txt";
     private final ArrayList<Task> taskList = new ArrayList<>();
-
+    /**
+     * Loads tasks from the storage file.
+     * Creates the file and directory if they do not exist.
+     *
+     * @return An ArrayList of tasks loaded from the file, or an empty list if the file does not exist.
+     */
     public ArrayList<Task> loadDataFromFile() {
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()) {
@@ -38,7 +47,11 @@ public class Storage {
 
         return taskList;
     }
-
+    /**
+     * Parses a single line from the storage file into a Task object.
+     * @param line The line to parse.
+     * @return The parsed Task, or null if the line is invalid.
+     */
     public Task parseTaskFromLine(String line) {
         try {
             String[] parts = line.split(" \\| ");
@@ -93,7 +106,12 @@ public class Storage {
             return null;
         }
     }
-
+    /**
+     * Saves the given list of tasks to the storage file.
+     * Creates the data directory if it does not exist.
+     *
+     * @param list The list of tasks to save.
+     */
     public void linesToFile(ArrayList<Task> list) {
         try {
             Files.createDirectories(Path.of(DIRECTORY_PATH));
@@ -104,7 +122,12 @@ public class Storage {
             System.err.println("Error writing file: " + e.getMessage());
         }
     }
-
+    /**
+     * Converts a list of tasks into their string representations for file storage.
+     *
+     * @param list The list of tasks to convert.
+     * @return An ArrayList of formatted strings representing each task.
+     */
     public ArrayList<String> taskToLines(ArrayList<Task> list) {
         ArrayList<String> lines = new ArrayList<>();
 
@@ -131,7 +154,14 @@ public class Storage {
 
             case "cq.EventTask":
                 EventTask eventTask = (EventTask) task;
-                line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | " + eventTask.getEndDate();
+                line = "E | "
+                        + status
+                        + " | "
+                        + task.getName()
+                        + " | "
+                        + eventTask.getStartDate()
+                        + " | "
+                        + eventTask.getEndDate();
                 break;
 
             default:
