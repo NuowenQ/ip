@@ -24,9 +24,10 @@ public class Ui {
      *
      * @param message the message to display
      */
-    public void constructMessage(String message) {
+    public String constructMessage(String message) {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+        return message; // For GUI
     }
 }

@@ -1,5 +1,7 @@
 package cq;
 
+import javafx.application.Platform;
+
 /**
  * A class that represents the chatbot itself, providing APIs to resolve tasks.
  */
@@ -32,10 +34,11 @@ public class Cq {
     /**
      * Says goodbye to the user and saves tasks to storage.
      */
-    public void bye() {
+    public String bye() {
         this.storage.linesToFile(cqlist.getList());
         String message = "Bye. Hope to see you again soon!";
-        ui.constructMessage(message);
+        Platform.exit();
+        return ui.constructMessage(message);
     }
 
     /**
@@ -43,9 +46,9 @@ public class Cq {
      *
      * @param userInput the task description
      */
-    public void addToDoToList(String userInput) {
+    public String addToDoToList(String userInput) {
         String message = cqlist.addToDoItem(userInput);
-        ui.constructMessage(message);
+        return ui.constructMessage(message);
     }
 
     /**
@@ -53,8 +56,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public void removeTaskFromList(int rank) {
-        ui.constructMessage(cqlist.removeByRank(rank - 1));
+    public String removeTaskFromList(int rank) {
+        return ui.constructMessage(cqlist.removeByRank(rank - 1));
     }
 
     /**
@@ -63,9 +66,9 @@ public class Cq {
      * @param userInput the task description
      * @param deadLine the deadline string
      */
-    public void addDeadlineToList(String userInput, String deadLine) {
+    public String addDeadlineToList(String userInput, String deadLine) {
         String message = cqlist.addDeadlineItem(userInput, deadLine.substring(3));
-        ui.constructMessage(message);
+        return ui.constructMessage(message);
     }
 
     /**
@@ -75,18 +78,18 @@ public class Cq {
      * @param startDate the start date of the event
      * @param endDate the end date of the event
      */
-    public void addEventToList(String userInput, String startDate, String endDate) {
+    public String addEventToList(String userInput, String startDate, String endDate) {
         String message = cqlist.addEventItem(userInput, startDate.substring(5), endDate.substring(3));
-        ui.constructMessage(message);
+        return ui.constructMessage(message);
     }
 
     /**
      * Lists all tasks to the user.
      */
-    public void listItems() {
+    public String listItems() {
         String message = "Here are the tasks in your list:\n";
         message += cqlist.toString();
-        ui.constructMessage(message);
+        return ui.constructMessage(message);
     }
 
     /**
@@ -94,8 +97,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public void markAsDone(int rank) {
-        ui.constructMessage(cqlist.listSetAsDone(rank - 1));
+    public String markAsDone(int rank) {
+        return ui.constructMessage(cqlist.listSetAsDone(rank - 1));
     }
 
     /**
@@ -103,8 +106,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public void markAsNotDone(int rank) {
-        ui.constructMessage(cqlist.listSetAsNotDone(rank - 1));
+    public String markAsNotDone(int rank) {
+        return ui.constructMessage(cqlist.listSetAsNotDone(rank - 1));
     }
 
     /**
@@ -121,10 +124,10 @@ public class Cq {
      *
      * @param keyWord key word to match the tasks.
      */
-    public void findTask(String keyWord) {
+    public String findTask(String keyWord) {
         String message = "Here are the matching tasks in your list:\n";
         message += cqlist.findMatchedTasks(keyWord);
-        ui.constructMessage(message);
+        return ui.constructMessage(message);
     }
 
     /**
@@ -132,15 +135,16 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public void handleTodo(String input) {
+    public String handleTodo(String input) {
         try {
             String description = input.substring("todo".length()).trim();
             if (description.isEmpty()) {
                 throw new IncompleteDescriptionException("The description for todo is empty");
             }
-            addToDoToList(description);
+            return addToDoToList(description);
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -149,16 +153,17 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public void handleDeadline(String input) {
+    public String handleDeadline(String input) {
         try {
             String subString = input.substring("deadline".length()).trim();
             String[] subStrings = subString.split(" /");
             if (subStrings.length != 2) {
                 throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
             }
-            addDeadlineToList(subStrings[0], subStrings[1]);
+            return addDeadlineToList(subStrings[0], subStrings[1]);
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -167,16 +172,17 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public void handleEvent(String input) {
+    public String handleEvent(String input) {
         try {
             String subString = input.substring("event".length()).trim();
             String[] subStrings = subString.split(" /");
             if (subStrings.length != 3) {
                 throw new IncompleteDescriptionException("Incorrect description format for event task!");
             }
-            addEventToList(subStrings[0], subStrings[1], subStrings[2]);
+            return addEventToList(subStrings[0], subStrings[1], subStrings[2]);
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }
