@@ -28,6 +28,7 @@ public class Parser {
      * @return the corresponding CommandType, or INVALID if unrecognized.
      */
     public static CommandType parse(String input) {
+        assert input != null && !input.isBlank() : "Input should not be null or blank";
         String[] inputs = input.split(" ");
         String command = inputs[0].toLowerCase();
 
