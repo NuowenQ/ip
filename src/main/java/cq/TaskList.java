@@ -75,18 +75,48 @@ public class TaskList {
     }
 
     /**
+     * Removes a task from the list by rank.
+     *
+     * @param task Type of the task
+     * @param descriptions The descriptions for the tasks
+     * @return string of the confirmation message
+     */
+    public String addTaskToList(TaskType task, String ...descriptions) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+
+        switch (task) {
+        case TODO:
+            ToDoTask todoTask = new ToDoTask(descriptions[0]);
+            sb.append(todoTask.toString()).append("\n");
+            list.add(todoTask);
+            break;
+        case DEADLINE:
+            DeadlineTask deadlineTask = new DeadlineTask(descriptions[0], descriptions[1]);
+            sb.append(deadlineTask.toString()).append("\n");
+            list.add(deadlineTask);
+            break;
+        case EVENT:
+            EventTask eventTask = new EventTask(descriptions[0], descriptions[1], descriptions[2]);
+            sb.append(eventTask.toString()).append("\n");
+            list.add(eventTask);
+            break;
+        default:
+            throw new IllegalArgumentException("Unsupported task type: " + task);
+        }
+
+        sb.append("Now you have ").append(this.getNumberOfTasks()).append(" tasks in the list.");
+        return sb.toString();
+    }
+
+    /**
      * Adds a Todo task to the list.
      *
      * @param itemName the task description.
      * @return the confirmation message.
      */
     public String addToDoItem(String itemName) {
-        String message = "Got it. I've added this task:\n";
-        ToDoTask item = new ToDoTask(itemName);
-        message += item.toString() + "\n";
-        this.list.add(item);
-        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
-        return message;
+        return addTaskToList(TaskType.TODO, itemName);
     }
 
     /**
@@ -97,12 +127,7 @@ public class TaskList {
      * @return the confirmation message.
      */
     public String addDeadlineItem(String itemName, String deadLine) {
-        String message = "Got it. I've added this task:\n";
-        DeadlineTask item = new DeadlineTask(itemName, deadLine);
-        message += item.toString() + "\n";
-        this.list.add(item);
-        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
-        return message;
+        return addTaskToList(TaskType.DEADLINE, itemName, deadLine);
     }
 
     /**
@@ -114,12 +139,7 @@ public class TaskList {
      * @return the confirmation message
      */
     public String addEventItem(String itemName, String startDate, String endDate) {
-        String message = "Got it. I've added this task:\n";
-        EventTask item = new EventTask(itemName, startDate, endDate);
-        message += item.toString() + "\n";
-        this.list.add(item);
-        message += "Now you have " + this.getNumberOfTasks() + " tasks in the list.";
-        return message;
+        return addTaskToList(TaskType.EVENT, itemName, startDate, endDate);
     }
 
     /**
@@ -139,14 +159,14 @@ public class TaskList {
             }
         }
 
-        String message = "";
+        StringBuilder message = new StringBuilder();
         int counter = 1;
         for (Task task : matchedResults) {
-            message += counter + "." + task.toString() + "\n";
+            message.append(counter).append(".").append(task.toString()).append("\n");
             counter++;
         }
 
-        return message.stripTrailing();
+        return message.toString().stripTrailing();
     }
 
     /**

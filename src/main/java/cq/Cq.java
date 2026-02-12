@@ -157,7 +157,7 @@ public class Cq {
         try {
             String subString = input.substring("deadline".length()).trim();
             String[] subStrings = subString.split(" /");
-            if (subStrings.length != 2) {
+            if (subStrings.length != Task.DEADLINE_TASK_INFORMATION_LENGTH) {
                 throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
             }
             return addDeadlineToList(subStrings[0], subStrings[1]);
@@ -176,7 +176,7 @@ public class Cq {
         try {
             String subString = input.substring("event".length()).trim();
             String[] subStrings = subString.split(" /");
-            if (subStrings.length != 3) {
+            if (subStrings.length != Task.EVENT_TASK_INFORMATION_LENGTH) {
                 throw new IncompleteDescriptionException("Incorrect description format for event task!");
             }
             return addEventToList(subStrings[0], subStrings[1], subStrings[2]);

@@ -20,8 +20,8 @@ public class ToDoTask extends Task {
      * @return the fully qualified class name
      */
     @Override
-    public String getTaskType() {
-        return "cq.ToDoTask";
+    public TaskType getTaskType() {
+        return TaskType.TODO;
     }
 
     /**
