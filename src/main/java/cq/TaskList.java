@@ -1,6 +1,8 @@
 package cq;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * A class that stores a list of tasks.
@@ -130,23 +132,10 @@ public class TaskList {
      * @return message in string format.
      */
     public String findMatchedTasks(String keyWord) {
-        ArrayList<Task> matchedResults = new ArrayList<>();
-
-        for (Task task : this.list) {
-            String name = task.getName();
-            if (name.contains(keyWord)) {
-                matchedResults.add(task);
-            }
-        }
-
-        String message = "";
-        int counter = 1;
-        for (Task task : matchedResults) {
-            message += counter + "." + task.toString() + "\n";
-            counter++;
-        }
-
-        return message.stripTrailing();
+        return IntStream.range(0, list.size())
+                .filter(i -> list.get(i).getName().contains(keyWord))
+                .mapToObj(i -> (i + 1) + "." + list.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -156,22 +145,12 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        int counter = 1;
-
         if (this.list.isEmpty()) {
             return "No items in list";
         }
 
-        for (int i = 0; i < this.list.size(); i++) {
-            if (!(i == this.list.size() - 1)) {
-                builder.append(counter).append(".").append(this.list.get(i).toString()).append("\n");
-            } else {
-                builder.append(counter).append(".").append(this.list.get(i).toString());
-            }
-            counter++;
-        }
-
-        return builder.toString();
+        return IntStream.range(0, list.size())
+                .mapToObj(i -> (i + 1) + "." + list.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 }
