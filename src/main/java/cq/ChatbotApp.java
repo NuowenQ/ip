@@ -40,6 +40,7 @@ public class ChatbotApp {
             case DEADLINE -> bot.handleDeadline(input);
             case EVENT -> bot.handleEvent(input);
             case FIND -> bot.findTask(inputs[1]);
+            case VIEW_SCHEDULES -> bot.showSchedule(inputs[1]);
             case INVALID -> throw new InvalidInputException("Invalid input! :(");
             default -> throw new IllegalStateException("Unhandled command type: " + command);
             };

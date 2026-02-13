@@ -1,5 +1,6 @@
 package cq.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -75,6 +76,16 @@ public abstract class Task {
     public String setAsIncomplete() {
         this.completeStatus = false;
         return this.toString();
+    }
+
+    /**
+     * Checks if the task falls on the given date.
+     *
+     * @param date the date to check against.
+     * @return true if the task is relevant to the date.
+     */
+    public boolean isOnDate(LocalDate date) {
+        return false;
     }
 
     /**

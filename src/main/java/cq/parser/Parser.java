@@ -36,6 +36,8 @@ public class Parser {
             return UserCommandType.EVENT;
         case "find":
             return UserCommandType.FIND;
+        case "view_schedule":
+            return UserCommandType.VIEW_SCHEDULES;
         default:
             return UserCommandType.INVALID;
         }

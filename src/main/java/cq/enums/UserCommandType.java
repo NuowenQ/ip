@@ -13,5 +13,6 @@ public enum UserCommandType {
     DEADLINE,
     EVENT,
     FIND,
+    VIEW_SCHEDULES,
     INVALID
 }

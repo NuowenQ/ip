@@ -39,6 +39,11 @@ public class DeadlineTask extends Task {
         return this.deadLine.format(Task.INPUT_FORMATTER);
     }
 
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return this.deadLine.equals(date);
+    }
+
     /**
      * Returns the task type identifier.
      *
