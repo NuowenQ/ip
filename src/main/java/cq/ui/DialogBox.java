@@ -1,4 +1,4 @@
-package cq;
+package cq.ui;
 
 import java.io.IOException;
 import java.util.Collections;

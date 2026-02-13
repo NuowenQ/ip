@@ -1,6 +1,8 @@
-package cq;
+package cq.task;
 
 import java.time.LocalDate;
+
+import cq.enums.TaskType;
 
 /**
  * Represents a task that spans a period of time with a start and end date.
@@ -27,7 +29,8 @@ public class EventTask extends Task {
         return "(from: "
                 + this.startDate.format(Task.OUTPUT_FORMATTER)
                 + " to: "
-                + this.endDate.format(Task.OUTPUT_FORMATTER) + ")";
+                + this.endDate.format(Task.OUTPUT_FORMATTER)
+                + ")";
     }
 
     public String getStartDate() {
@@ -39,8 +42,8 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String getTaskType() {
-        return "cq.EventTask";
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
     }
 
     @Override

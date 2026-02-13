@@ -1,4 +1,6 @@
-package cq;
+package cq.task;
+
+import cq.enums.TaskType;
 
 /**
  * A class that represents a Todo task.
@@ -20,8 +22,8 @@ public class ToDoTask extends Task {
      * @return the fully qualified class name
      */
     @Override
-    public String getTaskType() {
-        return "cq.ToDoTask";
+    public TaskType getTaskType() {
+        return TaskType.TODO;
     }
 
     /**

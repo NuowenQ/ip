@@ -1,15 +1,20 @@
-package cq;
+package cq.task;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import cq.enums.TaskType;
 
 /**
  * Abstract base class representing a task in the chatbot application.
  */
 public abstract class Task {
+    public static final int TODO_TASK_INFORMATION_LENGTH = 1;
+    public static final int DEADLINE_TASK_INFORMATION_LENGTH = 2;
+    public static final int EVENT_TASK_INFORMATION_LENGTH = 3;
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static final DateTimeFormatter OUTPUT_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
+        DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
     private final String name;
     private boolean completeStatus;
 
@@ -20,6 +25,9 @@ public abstract class Task {
      * @param name The name or description of the task.
      */
     public Task(String name) {
+        assert (name != null);
+        assert (!name.isBlank());
+
         this.name = name;
         this.completeStatus = false;
     }
@@ -29,7 +37,7 @@ public abstract class Task {
      *
      * @return A string representing the task type.
      */
-    public abstract String getTaskType();
+    public abstract TaskType getTaskType();
 
     /**
      * Returns the name of this task.
@@ -76,14 +84,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String message = "";
-
-        if (this.getCompleteStatus()) {
-            message += "[x]";
-        } else {
-            message += "[ ]";
-        }
-
-        return message + " " + this.name;
+        String status = this.getCompleteStatus() ? "[x]" : "[ ]";
+        return status + " " + this.name;
     }
 }

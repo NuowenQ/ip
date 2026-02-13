@@ -1,6 +1,8 @@
-package cq;
+package cq.task;
 
 import java.time.LocalDate;
+
+import cq.enums.TaskType;
 
 /**
  * A class that represents a deadline task.
@@ -43,8 +45,8 @@ public class DeadlineTask extends Task {
      * @return the fully qualified class name
      */
     @Override
-    public String getTaskType() {
-        return "cq.DeadlineTask";
+    public TaskType getTaskType() {
+        return TaskType.DEADLINE;
     }
 
     /**
