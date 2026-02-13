@@ -1,4 +1,4 @@
-package cq;
+package cq.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import cq.enums.TaskType;
+import cq.task.DeadlineTask;
+import cq.task.EventTask;
+import cq.task.Task;
+import cq.task.ToDoTask;
+
 /**
  * Handles loading and saving tasks to storage.
  * Tasks are stored in a text file with a predefined format.
@@ -14,7 +20,6 @@ import java.util.ArrayList;
 public class Storage {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/cq.txt";
-    private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Loads tasks from the storage file.
@@ -23,7 +28,9 @@ public class Storage {
      * @return An ArrayList of tasks loaded from the file, or an empty list if the file does not exist.
      */
     public ArrayList<Task> loadDataFromFile() {
+        ArrayList<Task> taskList = new ArrayList<>();
         File directory = new File(DIRECTORY_PATH);
+
         if (!directory.exists()) {
             return taskList;
         }
@@ -38,7 +45,7 @@ public class Storage {
             for (String line : lines) {
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
-                    this.taskList.add(task);
+                    taskList.add(task);
                 }
             }
             return taskList;
@@ -57,57 +64,40 @@ public class Storage {
     public Task parseTaskFromLine(String line) {
         try {
             String[] parts = line.split(" \\| ");
-            if (parts.length < 3 || parts.length > 5) {
-                return null;
-            }
-
             String taskType = parts[0].trim();
             boolean isDone = parts[1].trim().equals("1");
             String name = parts[2].trim();
+            Task task = getTask(taskType, parts, name);
 
-            Task task;
-            switch (taskType) {
-            case "T":
-                if (parts.length != 3) {
-                    return null;
-                }
-
-                task = new ToDoTask(name);
-                break;
-
-            case "D":
-                if (parts.length != 4) {
-                    return null;
-                }
-
-                String deadLine = parts[3].trim();
-                task = new DeadlineTask(name, deadLine);
-                break;
-
-            case "E":
-                if (parts.length != 5) {
-                    return null;
-                }
-
-                String startDate = parts[3].trim();
-                String endDate = parts[4].trim();
-                task = new EventTask(name, startDate, endDate);
-                break;
-            default:
-                return null;
-            }
-
-            if (isDone) {
+            if (task != null && isDone) {
                 task.setAsComplete();
             }
 
             return task;
 
         } catch (Exception e) {
-            System.out.println("Error parsing line: " + e.getMessage());
+            System.out.println(e.getMessage());
             return null;
         }
     }
+
+    private static Task getTask(String taskType, String[] parts, String name) {
+        int descriptionLength = 2;
+
+        return switch (taskType) {
+        case "T" -> parts.length == Task.TODO_TASK_INFORMATION_LENGTH + descriptionLength
+                ? new ToDoTask(name)
+                : null;
+        case "D" -> parts.length == Task.DEADLINE_TASK_INFORMATION_LENGTH + descriptionLength
+                ? new DeadlineTask(name, parts[3].trim())
+                : null;
+        case "E" -> parts.length == Task.EVENT_TASK_INFORMATION_LENGTH + descriptionLength
+                ? new EventTask(name, parts[3].trim(), parts[4].trim())
+                : null;
+        default -> null;
+        };
+    }
+
     /**
      * Saves the given list of tasks to the storage file.
      * Creates the data directory if it does not exist.
@@ -124,6 +114,7 @@ public class Storage {
             System.err.println("Error writing file: " + e.getMessage());
         }
     }
+
     /**
      * Converts a list of tasks into their string representations for file storage.
      *
@@ -134,45 +125,29 @@ public class Storage {
         ArrayList<String> lines = new ArrayList<>();
 
         for (Task task : list) {
-            String status;
-            String taskType = task.getTaskType();
+            String status = task.getCompleteStatus() ? "1" : "0";
+            TaskType taskType = task.getTaskType();
             String line;
 
-            if (task.getCompleteStatus()) {
-                status = "1";
-            } else {
-                status = "0";
-            }
-
             switch (taskType) {
-            case "cq.ToDoTask": //T | 1 | read book
+            case TODO:
                 line = "T | " + status + " | " + task.getName();
                 break;
-
-            case "cq.DeadlineTask":
+            case DEADLINE:
                 DeadlineTask deadlineTask = (DeadlineTask) task;
                 line = "D | " + status + " | " + deadlineTask.getName() + " | " + deadlineTask.getDeadLineForFile();
                 break;
-
-            case "cq.EventTask":
+            case EVENT:
                 EventTask eventTask = (EventTask) task;
-                line = "E | "
-                        + status
-                        + " | "
-                        + task.getName()
-                        + " | "
-                        + eventTask.getStartDate()
-                        + " | "
+                line = "E | " + status + " | " + task.getName() + " | " + eventTask.getStartDate() + " | "
                         + eventTask.getEndDate();
                 break;
-
             default:
                 continue;
             }
 
             lines.add(line);
         }
-
         return lines;
     }
 }

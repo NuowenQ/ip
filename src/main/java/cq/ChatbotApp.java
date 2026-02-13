@@ -1,5 +1,10 @@
 package cq;
 
+import cq.enums.UserCommandType;
+import cq.exceptions.InvalidInputException;
+import cq.parser.Parser;
+import cq.ui.Ui;
+
 /**
  * Main application class which handles user interaction
  * with Cq chatbot through a command-line interface.
@@ -23,32 +28,21 @@ public class ChatbotApp {
      */
     public String run(String input) {
         String[] inputs = input.split(" ");
-        Parser.CommandType command = Parser.parse(input);
+        UserCommandType command = Parser.parse(input);
         try {
-            switch (command) {
-            case BYE:
-                return this.bot.bye();
-            case LIST:
-                return this.bot.listItems();
-            case MARK:
-                return bot.markAsDone(Integer.parseInt(inputs[1]));
-            case UNMARK:
-                return bot.markAsNotDone(Integer.parseInt(inputs[1]));
-            case DELETE:
-                return bot.removeTaskFromList(Integer.parseInt(inputs[1]));
-            case TODO:
-                return bot.handleTodo(input);
-            case DEADLINE:
-                return bot.handleDeadline(input);
-            case EVENT:
-                return bot.handleEvent(input);
-            case FIND:
-                return bot.findTask(inputs[1]);
-            case INVALID:
-                throw new InvalidInputException("Invalid input! :(");
-            default:
-                throw new IllegalStateException("Unhandled command type: " + command);
-            }
+            return switch (command) {
+            case BYE -> this.bot.bye();
+            case LIST -> this.bot.listItems();
+            case MARK -> bot.markAsDone(Integer.parseInt(inputs[1]));
+            case UNMARK -> bot.markAsNotDone(Integer.parseInt(inputs[1]));
+            case DELETE -> bot.removeTaskFromList(Integer.parseInt(inputs[1]));
+            case TODO -> bot.handleTodo(input);
+            case DEADLINE -> bot.handleDeadline(input);
+            case EVENT -> bot.handleEvent(input);
+            case FIND -> bot.findTask(inputs[1]);
+            case INVALID -> throw new InvalidInputException("Invalid input! :(");
+            default -> throw new IllegalStateException("Unhandled command type: " + command);
+            };
         } catch (InvalidInputException e) {
             this.bot.showMessage(e.getMessage());
             return e.getMessage();
