@@ -1,5 +1,6 @@
 package cq.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -84,6 +85,21 @@ public class TaskList {
         }
 
         return message;
+    }
+
+    /**
+     * Find tasks that match the given date
+     *
+     * @param date date that the user wants to search
+     * @return the macthed tasks
+     */
+    public String findMatchedTasksToDate(String date) {
+        LocalDate targetDate = LocalDate.parse(date, Task.INPUT_FORMATTER);
+
+        return IntStream.range(0, list.size())
+                .filter(i -> list.get(i).isOnDate(targetDate))
+                .mapToObj(i -> (i + 1) + "." + list.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 
     /**

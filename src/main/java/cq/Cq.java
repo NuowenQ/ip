@@ -137,6 +137,17 @@ public class Cq {
     }
 
     /**
+     * Construct message to display tasks related to certain dates.
+     *
+     * @param date date for searching tasks.
+     */
+    public String showSchedule(String date) {
+        String message = "Here are the tasks on " + date + ":\n";
+        message += cqlist.findMatchedTasksToDate(date);
+        return ui.constructMessage(message);
+    }
+
+    /**
      * Parses and adds a Todo task from user input.
      *
      * @param input the raw user input string

@@ -42,6 +42,11 @@ public class EventTask extends Task {
     }
 
     @Override
+    public boolean isOnDate(LocalDate date) {
+        return !date.isBefore(this.startDate) && !date.isAfter(this.endDate);
+    }
+
+    @Override
     public TaskType getTaskType() {
         return TaskType.EVENT;
     }
