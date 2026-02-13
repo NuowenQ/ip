@@ -69,10 +69,18 @@ public class TaskList {
      * @return the confirmation message.
      */
     public String removeByRank(int rank) {
-        String message = "Noted. I've removed this task:\n";
-        message += this.list.get(rank).toString();
-        this.list.remove(rank);
-        message += "\nNow you have " + this.getNumberOfTasks() + " tasks in the list.";
+        String message;
+
+        try {
+            String taskName = this.list.get(rank).getName();
+            this.list.remove(rank);
+            message = "Noted. I've removed this task:\n";
+            message += taskName;
+            message += "\nNow you have " + this.getNumberOfTasks() + " tasks in the list.";
+        } catch (IndexOutOfBoundsException e) {
+            message = "Invalid input, index out of bound!";
+        }
+
         return message;
     }
 

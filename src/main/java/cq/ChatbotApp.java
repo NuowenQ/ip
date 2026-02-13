@@ -9,7 +9,6 @@ import cq.ui.Ui;
  * Main application class which handles user interaction
  * with Cq chatbot through a command-line interface.
  */
-@SuppressWarnings("checkstyle:CommentsIndentation")
 public class ChatbotApp {
     private Cq bot;
 
