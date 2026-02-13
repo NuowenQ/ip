@@ -15,6 +15,7 @@ public class Storage {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/cq.txt";
     private final ArrayList<Task> taskList = new ArrayList<>();
+
     /**
      * Loads tasks from the storage file.
      * Creates the file and directory if they do not exist.
@@ -47,6 +48,7 @@ public class Storage {
 
         return taskList;
     }
+
     /**
      * Parses a single line from the storage file into a Task object.
      * @param line The line to parse.

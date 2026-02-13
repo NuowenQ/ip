@@ -10,6 +10,7 @@ public abstract class Task {
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
+
     private final String name;
     private boolean completeStatus;
 
@@ -20,6 +21,9 @@ public abstract class Task {
      * @param name The name or description of the task.
      */
     public Task(String name) {
+        assert (name != null);
+        assert (!name.isBlank());
+
         this.name = name;
         this.completeStatus = false;
     }

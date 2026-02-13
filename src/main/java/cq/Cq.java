@@ -48,6 +48,7 @@ public class Cq {
      */
     public String addToDoToList(String userInput) {
         String message = cqlist.addToDoItem(userInput);
+        assert !message.isEmpty();
         return ui.constructMessage(message);
     }
 
