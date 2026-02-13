@@ -1,4 +1,4 @@
-package cq;
+package cq.enums;
 
 /**
  * An Enum class containing types of task

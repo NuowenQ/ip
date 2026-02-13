@@ -1,4 +1,4 @@
-package cq;
+package cq.ui;
 
 /**
  * A UI class that handles displaying messages and visual elements
@@ -10,11 +10,11 @@ public class Ui {
      * Constructs the chatbot logo and welcome the user.
      */
     public static void showHeader() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "  ____  ___  \n"
+                + " / ___|/ _ \\ \n"
+                + "| |   | | | |\n"
+                + "| |___| |_| |\n"
+                + " \\____|\\__\\_\\\n";
         System.out.println("Hello from\n" + logo);
     }
 

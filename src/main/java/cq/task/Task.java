@@ -1,7 +1,9 @@
-package cq;
+package cq.task;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import cq.enums.TaskType;
 
 /**
  * Abstract base class representing a task in the chatbot application.

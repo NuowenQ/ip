@@ -1,6 +1,8 @@
-package cq;
+package cq.task;
 
 import java.time.LocalDate;
+
+import cq.enums.TaskType;
 
 /**
  * Represents a task that spans a period of time with a start and end date.
@@ -41,7 +43,7 @@ public class EventTask extends Task {
 
     @Override
     public TaskType getTaskType() {
-        return TaskType.DEADLINE;
+        return TaskType.EVENT;
     }
 
     @Override

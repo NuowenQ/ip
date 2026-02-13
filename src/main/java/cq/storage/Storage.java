@@ -1,4 +1,4 @@
-package cq;
+package cq.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import cq.enums.TaskType;
+import cq.task.DeadlineTask;
+import cq.task.EventTask;
+import cq.task.Task;
+import cq.task.ToDoTask;
 
 /**
  * Handles loading and saving tasks to storage.
@@ -124,7 +130,7 @@ public class Storage {
             String line;
 
             switch (taskType) {
-            case TODO: //T | 1 | read book
+            case TODO:
                 line = "T | " + status + " | " + task.getName();
                 break;
             case DEADLINE:

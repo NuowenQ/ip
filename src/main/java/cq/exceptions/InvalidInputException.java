@@ -1,4 +1,4 @@
-package cq;
+package cq.exceptions;
 /**
  * Exception thrown when a user enters an unrecognized command or invalid input.
  */

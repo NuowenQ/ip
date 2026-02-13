@@ -1,6 +1,8 @@
-package cq;
+package cq.task;
 
 import java.util.ArrayList;
+
+import cq.enums.TaskType;
 
 /**
  * A class that stores a list of tasks.

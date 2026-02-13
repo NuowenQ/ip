@@ -1,4 +1,4 @@
-package cq;
+package cq.exceptions;
 
 /**
  * Exception thrown when a task description is incomplete or missing required information.
