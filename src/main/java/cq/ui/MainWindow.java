@@ -25,6 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Normal.png"));
+    private Image wrongInput = new Image(this.getClass().getResourceAsStream("/images/Wrong_input.png"));
 
     @FXML
     public void initialize() {
@@ -44,9 +45,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = app.run(input);
+        boolean isError = response.startsWith("Invalid input");
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, isError ? wrongInput : dukeImage)
         );
         userInput.clear();
     }
