@@ -28,7 +28,7 @@ public class Cq {
      * existing tasks from storage.
      */
     public Cq() {
-        this.name = "CQ";
+        this.name = "Speed";
         this.storage = new Storage();
         this.cqList = new TaskList(storage.loadDataFromFile());
         this.ui = new Ui();
