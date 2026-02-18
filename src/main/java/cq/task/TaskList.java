@@ -103,30 +103,30 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the list by rank.
+     * Add task to list
      *
      * @param task Type of the task
-     * @param descriptions The descriptions for the tasks
+     * @param dates The dates for the tasks
      * @return string of the confirmation message
      */
-    public String addTaskToList(TaskType task, String ...descriptions) {
+    public String addTaskToList(TaskType task, String name, LocalDate ...dates) {
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
 
         switch (task) {
         case TODO:
-            ToDoTask todoTask = new ToDoTask(descriptions[0]);
-            sb.append(todoTask.toString()).append("\n");
+            ToDoTask todoTask = new ToDoTask(name);
+            sb.append(todoTask).append("\n");
             list.add(todoTask);
             break;
         case DEADLINE:
-            DeadlineTask deadlineTask = new DeadlineTask(descriptions[0], descriptions[1]);
-            sb.append(deadlineTask.toString()).append("\n");
+            DeadlineTask deadlineTask = new DeadlineTask(name, dates[0]);
+            sb.append(deadlineTask).append("\n");
             list.add(deadlineTask);
             break;
         case EVENT:
-            EventTask eventTask = new EventTask(descriptions[0], descriptions[1], descriptions[2]);
-            sb.append(eventTask.toString()).append("\n");
+            EventTask eventTask = new EventTask(name, dates[0], dates[1]);
+            sb.append(eventTask).append("\n");
             list.add(eventTask);
             break;
         default:
@@ -154,7 +154,7 @@ public class TaskList {
      * @param deadLine the deadline in input date format.
      * @return the confirmation message.
      */
-    public String addDeadlineItem(String itemName, String deadLine) {
+    public String addDeadlineItem(String itemName, LocalDate deadLine) {
         return addTaskToList(TaskType.DEADLINE, itemName, deadLine);
     }
 
@@ -166,7 +166,7 @@ public class TaskList {
      * @param endDate the end date of the event
      * @return the confirmation message
      */
-    public String addEventItem(String itemName, String startDate, String endDate) {
+    public String addEventItem(String itemName, LocalDate startDate, LocalDate endDate) {
         return addTaskToList(TaskType.EVENT, itemName, startDate, endDate);
     }
 

@@ -19,10 +19,10 @@ public class EventTask extends Task {
      * @param startDate The start date of the event in the format specified by Task.INPUT_FORMATTER.
      * @param endDate   The end date of the event in the format specified by Task.INPUT_FORMATTER.
      */
-    public EventTask(String name, String startDate, String endDate) {
+    public EventTask(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
-        this.startDate = LocalDate.parse(startDate, Task.INPUT_FORMATTER);
-        this.endDate = LocalDate.parse(endDate, Task.INPUT_FORMATTER);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public String getPeriod() {

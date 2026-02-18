@@ -1,6 +1,7 @@
 package cq.ui;
 
 import cq.ChatbotApp;
+import cq.messages.Response;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -44,12 +45,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = app.run(input);
-        boolean isError = response.startsWith("Invalid input");
+        Response response = app.run(input);
+        boolean isError = response.isError();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, isError ? wrongInput : dukeImage)
+                DialogBox.getDukeDialog(response.getMessage(), isError ? wrongInput : dukeImage)
         );
         userInput.clear();
     }

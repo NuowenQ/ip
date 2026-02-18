@@ -1,6 +1,13 @@
 package cq;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cq.exceptions.IncompleteDescriptionException;
+import cq.exceptions.InvalidInputException;
+import cq.messages.Response;
 import cq.storage.Storage;
 import cq.task.Task;
 import cq.task.TaskList;
@@ -39,11 +46,11 @@ public class Cq {
     /**
      * Says goodbye to the user and saves tasks to storage.
      */
-    public String bye() {
+    public Response bye() {
         this.storage.linesToFile(cqlist.getList());
         String message = "Bye. Hope to see you again soon!";
         Platform.exit();
-        return ui.constructMessage(message);
+        return new Response(ui.constructMessage(message));
     }
 
     /**
@@ -62,8 +69,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public String removeTaskFromList(int rank) {
-        return ui.constructMessage(cqlist.removeByRank(rank - 1));
+    public Response removeTaskFromList(int rank) {
+        return new Response(ui.constructMessage(cqlist.removeByRank(rank - 1)));
     }
 
     /**
@@ -72,30 +79,66 @@ public class Cq {
      * @param userInput the task description
      * @param deadLine the deadline string
      */
-    public String addDeadlineToList(String userInput, String deadLine) {
-        String message = cqlist.addDeadlineItem(userInput, deadLine.substring(3));
-        return ui.constructMessage(message);
+    public Response addDeadlineToList(String userInput, String deadLine) {
+        try {
+            LocalDate deadLineDate = extractDate(deadLine);
+            String message = cqlist.addDeadlineItem(userInput, deadLineDate);
+            ui.constructMessage(message);
+            return new Response(message);
+        } catch (InvalidInputException e) {
+            ui.constructMessage(e.getMessage());
+            return new Response(e.getMessage(), true);
+        }
     }
 
     /**
      * Adds an Event task to the list.
      *
      * @param userInput the task description
-     * @param startDate the start date of the event
-     * @param endDate the end date of the event
+     * @param start the start date of the event
+     * @param end the end date of the event
      */
-    public String addEventToList(String userInput, String startDate, String endDate) {
-        String message = cqlist.addEventItem(userInput, startDate.substring(5), endDate.substring(3));
-        return ui.constructMessage(message);
+    public Response addEventToList(String userInput, String start, String end) {
+        try {
+            LocalDate startDate = extractDate(start);
+            LocalDate endDate = extractDate(end);
+
+            if (endDate.isBefore(startDate)) {
+                throw new InvalidInputException("End date cannot be before start date!"); // change to respond.
+            }
+
+            String message = cqlist.addEventItem(userInput, startDate, endDate);
+            ui.constructMessage(message);
+            return new Response(message);
+
+        } catch (InvalidInputException e) {
+            ui.constructMessage(e.getMessage());
+            return new Response(e.getMessage(), true);
+        }
+    }
+
+    /**
+     * Extract date from a given input
+     * @param input input string from the user
+     * @return Parsed date
+     * @throws InvalidInputException if no valid date is found
+     */
+    public LocalDate extractDate(String input) throws InvalidInputException {
+        Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return LocalDate.parse(matcher.group(), Task.INPUT_FORMATTER);
+        }
+        throw new InvalidInputException("Date format is invalid!");
     }
 
     /**
      * Lists all tasks to the user.
      */
-    public String listItems() {
+    public Response listItems() {
         String message = "Here are the tasks in your list:\n";
         message += cqlist.toString();
-        return ui.constructMessage(message);
+        return new Response(ui.constructMessage(message));
     }
 
     /**
@@ -103,8 +146,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public String markAsDone(int rank) {
-        return ui.constructMessage(cqlist.listSetAsDone(rank - 1));
+    public Response markAsDone(int rank) {
+        return new Response(ui.constructMessage(cqlist.listSetAsDone(rank - 1)));
     }
 
     /**
@@ -112,8 +155,8 @@ public class Cq {
      *
      * @param rank the 1 indexed position of the task in the list
      */
-    public String markAsNotDone(int rank) {
-        return ui.constructMessage(cqlist.listSetAsNotDone(rank - 1));
+    public Response markAsNotDone(int rank) {
+        return new Response(ui.constructMessage(cqlist.listSetAsNotDone(rank - 1)));
     }
 
     /**
@@ -130,10 +173,10 @@ public class Cq {
      *
      * @param keyWord key word to match the tasks.
      */
-    public String findTask(String keyWord) {
+    public Response findTask(String keyWord) {
         String message = "Here are the matching tasks in your list:\n";
         message += cqlist.findMatchedTasks(keyWord);
-        return ui.constructMessage(message);
+        return new Response(ui.constructMessage(message));
     }
 
     /**
@@ -141,10 +184,10 @@ public class Cq {
      *
      * @param date date for searching tasks.
      */
-    public String showSchedule(String date) {
+    public Response showSchedule(String date) {
         String message = "Here are the tasks on " + date + ":\n";
         message += cqlist.findMatchedTasksToDate(date);
-        return ui.constructMessage(message);
+        return new Response(ui.constructMessage(message));
     }
 
     /**
@@ -152,16 +195,16 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public String handleTodo(String input) {
+    public Response handleTodo(String input) {
         try {
             String description = input.substring("todo".length()).trim();
             if (description.isEmpty()) {
                 throw new IncompleteDescriptionException("The description for todo is empty");
             }
-            return addToDoToList(description);
+            return new Response(addToDoToList(description));
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
-            return e.getMessage();
+            return new Response(e.getMessage(), true);
         }
     }
 
@@ -170,17 +213,20 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public String handleDeadline(String input) {
+    public Response handleDeadline(String input) {
         try {
             String subString = input.substring("deadline".length()).trim();
-            String[] subStrings = subString.split(" /");
+            String[] subStrings = subString.split(" /by");
             if (subStrings.length != Task.DEADLINE_TASK_INFORMATION_LENGTH) {
                 throw new IncompleteDescriptionException("Incorrect description format for deadline task!");
             }
-            return addDeadlineToList(subStrings[0], subStrings[1]);
+            return addDeadlineToList(subStrings[0], subStrings[1].trim());
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
-            return e.getMessage();
+            return new Response(e.getMessage(), true);
+        } catch (DateTimeParseException e) {
+            showMessage("Wrong date format for deadline task!");
+            return new Response("Wrong date format for deadline task!", true);
         }
     }
 
@@ -189,7 +235,7 @@ public class Cq {
      *
      * @param input the raw user input string
      */
-    public String handleEvent(String input) {
+    public Response handleEvent(String input) {
         try {
             String subString = input.substring("event".length()).trim();
             String[] subStrings = subString.split(" /");
@@ -199,7 +245,7 @@ public class Cq {
             return addEventToList(subStrings[0], subStrings[1], subStrings[2]);
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
-            return e.getMessage();
+            return new Response(e.getMessage(), true);
         }
     }
 }

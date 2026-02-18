@@ -16,9 +16,9 @@ public class DeadlineTask extends Task {
      * @param name the description of the task
      * @param deadLine the deadline in input date format
      */
-    public DeadlineTask(String name, String deadLine) {
+    public DeadlineTask(String name, LocalDate deadLine) {
         super(name);
-        this.deadLine = LocalDate.parse(deadLine, Task.INPUT_FORMATTER);
+        this.deadLine = deadLine;
     }
 
     /**

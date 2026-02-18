@@ -13,8 +13,8 @@ public abstract class Task {
     public static final int TODO_TASK_INFORMATION_LENGTH = 1;
     public static final int DEADLINE_TASK_INFORMATION_LENGTH = 2;
     public static final int EVENT_TASK_INFORMATION_LENGTH = 3;
-    protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    protected static final DateTimeFormatter OUTPUT_FORMATTER =
+    public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter OUTPUT_FORMATTER =
         DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
     private final String name;
     private boolean completeStatus;

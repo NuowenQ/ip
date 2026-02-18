@@ -2,6 +2,7 @@ package cq;
 
 import cq.enums.UserCommandType;
 import cq.exceptions.InvalidInputException;
+import cq.messages.Response;
 import cq.parser.Parser;
 import cq.ui.Ui;
 
@@ -26,7 +27,7 @@ public class ChatbotApp {
     /**
      * A run method for GUI
      */
-    public String run(String input) {
+    public Response run(String input) {
         String[] inputs = input.split(" ");
         UserCommandType command = Parser.parse(input);
         try {
@@ -46,7 +47,7 @@ public class ChatbotApp {
             };
         } catch (InvalidInputException e) {
             this.bot.showMessage(e.getMessage());
-            return e.getMessage();
+            return new Response(e.getMessage(), true);
         }
     }
 }

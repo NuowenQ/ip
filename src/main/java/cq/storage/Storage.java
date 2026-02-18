@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cq.enums.TaskType;
@@ -89,10 +90,12 @@ public class Storage {
                 ? new ToDoTask(name)
                 : null;
         case "D" -> parts.length == Task.DEADLINE_TASK_INFORMATION_LENGTH + descriptionLength
-                ? new DeadlineTask(name, parts[3].trim())
+                ? new DeadlineTask(name, LocalDate.parse(parts[3].trim(), Task.INPUT_FORMATTER))
                 : null;
         case "E" -> parts.length == Task.EVENT_TASK_INFORMATION_LENGTH + descriptionLength
-                ? new EventTask(name, parts[3].trim(), parts[4].trim())
+                ? new EventTask(name,
+                    LocalDate.parse(parts[3].trim(), Task.INPUT_FORMATTER),
+                    LocalDate.parse(parts[4].trim(), Task.INPUT_FORMATTER))
                 : null;
         default -> null;
         };
