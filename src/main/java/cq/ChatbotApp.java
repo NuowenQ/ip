@@ -25,6 +25,13 @@ public class ChatbotApp {
     }
 
     /**
+     * Send a message to greet the user.
+     */
+    public Response greet() {
+        return this.bot.greet();
+    }
+
+    /**
      * Parses the user input into a command type and processes it accordingly.
      */
     public Response run(String input) {

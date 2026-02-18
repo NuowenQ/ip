@@ -21,7 +21,7 @@ public class Cq {
     private final Ui ui;
     private final String name;
     private final Storage storage;
-    private final TaskList cqlist;
+    private final TaskList cqList;
 
     /**
      * Constructs a new Cq chatbot with default settings and loads
@@ -30,24 +30,25 @@ public class Cq {
     public Cq() {
         this.name = "CQ";
         this.storage = new Storage();
-        this.cqlist = new TaskList(storage.loadDataFromFile());
+        this.cqList = new TaskList(storage.loadDataFromFile());
         this.ui = new Ui();
     }
 
     /**
      * Greets the user with a welcome message.
      */
-    public void greet() {
+    public Response greet() {
         String message = "Hello I'm " + this.name;
         message += "\nWhat can I do for you?";
         ui.constructMessage(message);
+        return new Response(message);
     }
 
     /**
      * Says goodbye to the user and saves tasks to storage.
      */
     public Response bye() {
-        this.storage.linesToFile(cqlist.getList());
+        this.storage.linesToFile(cqList.getList());
         String message = "Bye. Hope to see you again soon!";
         Platform.exit();
         return new Response(ui.constructMessage(message));
@@ -59,7 +60,7 @@ public class Cq {
      * @param userInput the task description
      */
     public String addToDoToList(String userInput) {
-        String message = cqlist.addToDoItem(userInput);
+        String message = cqList.addToDoItem(userInput);
         assert !message.isEmpty();
         return ui.constructMessage(message);
     }
@@ -70,7 +71,7 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response removeTaskFromList(int rank) {
-        return new Response(ui.constructMessage(cqlist.removeByRank(rank - 1)));
+        return new Response(ui.constructMessage(cqList.removeByRank(rank - 1)));
     }
 
     /**
@@ -82,7 +83,7 @@ public class Cq {
     public Response addDeadlineToList(String userInput, String deadLine) {
         try {
             LocalDate deadLineDate = extractDate(deadLine);
-            String message = cqlist.addDeadlineItem(userInput, deadLineDate);
+            String message = cqList.addDeadlineItem(userInput, deadLineDate);
             ui.constructMessage(message);
             return new Response(message);
         } catch (InvalidInputException e) {
@@ -107,7 +108,7 @@ public class Cq {
                 throw new InvalidInputException("End date cannot be before start date!"); // change to respond.
             }
 
-            String message = cqlist.addEventItem(userInput, startDate, endDate);
+            String message = cqList.addEventItem(userInput, startDate, endDate);
             ui.constructMessage(message);
             return new Response(message);
 
@@ -137,7 +138,7 @@ public class Cq {
      */
     public Response listItems() {
         String message = "Here are the tasks in your list:\n";
-        message += cqlist.toString();
+        message += cqList.toString();
         return new Response(ui.constructMessage(message));
     }
 
@@ -147,7 +148,7 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsDone(int rank) {
-        return new Response(ui.constructMessage(cqlist.listSetAsDone(rank - 1)));
+        return new Response(ui.constructMessage(cqList.listSetAsDone(rank - 1)));
     }
 
     /**
@@ -156,7 +157,7 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsNotDone(int rank) {
-        return new Response(ui.constructMessage(cqlist.listSetAsNotDone(rank - 1)));
+        return new Response(ui.constructMessage(cqList.listSetAsNotDone(rank - 1)));
     }
 
     /**
@@ -175,7 +176,7 @@ public class Cq {
      */
     public Response findTask(String keyWord) {
         String message = "Here are the matching tasks in your list:\n";
-        message += cqlist.findMatchedTasks(keyWord);
+        message += cqList.findMatchedTasks(keyWord);
         return new Response(ui.constructMessage(message));
     }
 
@@ -186,7 +187,7 @@ public class Cq {
      */
     public Response showSchedule(String date) {
         String message = "Here are the tasks on " + date + ":\n";
-        message += cqlist.findMatchedTasksToDate(date);
+        message += cqList.findMatchedTasksToDate(date);
         return new Response(ui.constructMessage(message));
     }
 

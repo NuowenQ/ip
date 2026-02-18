@@ -36,6 +36,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setApp(ChatbotApp app) {
         this.app = app;
+        Response response = app.greet();
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(response.getMessage(), dukeImage)
+        );
     }
 
     /**
