@@ -128,7 +128,7 @@ public class Storage {
         ArrayList<String> lines = new ArrayList<>();
 
         for (Task task : list) {
-            String status = task.getCompleteStatus() ? "1" : "0";
+            String status = task.getComplete() ? "1" : "0";
             TaskType taskType = task.getTaskType();
             String line;
 

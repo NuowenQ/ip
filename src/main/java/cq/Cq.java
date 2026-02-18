@@ -169,9 +169,9 @@ public class Cq {
     }
 
     /**
-     * Construct message to display matched tasks.
+     * Constructs a message displaying tasks that match the given keyword.
      *
-     * @param keyWord key word to match the tasks.
+     * @param keyWord The keyword used to match tasks.
      */
     public Response findTask(String keyWord) {
         String message = "Here are the matching tasks in your list:\n";
@@ -180,9 +180,9 @@ public class Cq {
     }
 
     /**
-     * Construct message to display tasks related to certain dates.
+     * Constructs a message displaying tasks scheduled on the given date.
      *
-     * @param date date for searching tasks.
+     * @param date The date used to search for matching tasks.
      */
     public Response showSchedule(String date) {
         String message = "Here are the tasks on " + date + ":\n";

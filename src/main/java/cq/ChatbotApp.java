@@ -25,7 +25,7 @@ public class ChatbotApp {
     }
 
     /**
-     * A run method for GUI
+     * Parses the user input into a command type and processes it accordingly.
      */
     public Response run(String input) {
         String[] inputs = input.split(" ");

@@ -17,7 +17,7 @@ public abstract class Task {
     public static final DateTimeFormatter OUTPUT_FORMATTER =
         DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
     private final String name;
-    private boolean completeStatus;
+    private boolean isComplete;
 
     /**
      * Constructs a new Task with the specified name.
@@ -30,7 +30,7 @@ public abstract class Task {
         assert (!name.isBlank());
 
         this.name = name;
-        this.completeStatus = false;
+        this.isComplete = false;
     }
 
     /**
@@ -54,8 +54,8 @@ public abstract class Task {
      *
      * @return True if the task is complete, false otherwise.
      */
-    public boolean getCompleteStatus() {
-        return this.completeStatus;
+    public boolean getComplete() {
+        return this.isComplete;
     }
 
     /**
@@ -64,7 +64,7 @@ public abstract class Task {
      * @return The string representation of this task after marking as complete.
      */
     public String setAsComplete() {
-        this.completeStatus = true;
+        this.isComplete = true;
         return this.toString();
     }
 
@@ -74,7 +74,7 @@ public abstract class Task {
      * @return The string representation of this task after marking as incomplete.
      */
     public String setAsIncomplete() {
-        this.completeStatus = false;
+        this.isComplete = false;
         return this.toString();
     }
 
@@ -95,7 +95,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String status = this.getCompleteStatus() ? "[x]" : "[ ]";
+        String status = this.getComplete() ? "[x]" : "[ ]";
         return status + " " + this.name;
     }
 }
