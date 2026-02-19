@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import cq.enums.TaskType;
+import cq.exceptions.InvalidInputException;
+import cq.messages.Response;
 
 /**
  * A class that stores a list of tasks.
@@ -37,10 +39,18 @@ public class TaskList {
      * @param rank the 0 indexed rank of the task.
      * @return the confirmation message.
      */
-    public String listSetAsDone(int rank) {
-        String message = this.list.get(rank).setAsComplete();
-        message = "Nice! I've marked this task as done:\n" + message;
-        return message;
+    public Response listSetAsDone(int rank) {
+        try {
+            if (rank >= this.list.size()) {
+                throw new InvalidInputException("You don't have that many tasks in list!");
+            }
+
+            String message = this.list.get(rank).setAsComplete();
+            message = "Nice! I've marked this task as done:\n" + message;
+            return new Response(message);
+        } catch (InvalidInputException e) {
+            return new Response(e.getMessage(), true);
+        }
     }
 
     /**
@@ -49,10 +59,18 @@ public class TaskList {
      * @param rank the 0 indexed rank of the task.
      * @return the confirmation message
      */
-    public String listSetAsNotDone(int rank) {
-        String message = this.list.get(rank).setAsIncomplete();
-        message = "OK, I've marked this task as not done yet:\n" + message;
-        return message;
+    public Response listSetAsNotDone(int rank) {
+        try {
+            if (rank >= this.list.size()) {
+                throw new InvalidInputException("You don't have that many tasks in list!");
+            }
+
+            String message = this.list.get(rank).setAsIncomplete();
+            message = "OK, I've marked this task as not done yet:\n" + message;
+            return new Response(message);
+        } catch (InvalidInputException e) {
+            return new Response(e.getMessage(), true);
+        }
     }
 
     /**
@@ -71,7 +89,7 @@ public class TaskList {
      * @param rank the 0 indexed rank of the task.
      * @return the confirmation message.
      */
-    public String removeByRank(int rank) {
+    public Response removeByRank(int rank) {
         String message;
 
         try {
@@ -80,11 +98,11 @@ public class TaskList {
             message = "Noted. I've removed this task:\n";
             message += taskName;
             message += "\nNow you have " + this.getNumberOfTasks() + " tasks in the list.";
+            return new Response(message);
         } catch (IndexOutOfBoundsException e) {
-            message = "Invalid input, index out of bound!";
+            message = "You don't have that many tasks in list!";
+            return new Response(message, true);
         }
-
-        return message;
     }
 
     /**

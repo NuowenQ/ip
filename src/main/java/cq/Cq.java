@@ -71,7 +71,9 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response removeTaskFromList(int rank) {
-        return new Response(ui.constructMessage(cqList.removeByRank(rank - 1)));
+        Response response = cqList.removeByRank(rank - 1);
+        ui.constructMessage(response.getMessage());
+        return response;
     }
 
     /**
@@ -148,7 +150,9 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsDone(int rank) {
-        return new Response(ui.constructMessage(cqList.listSetAsDone(rank - 1)));
+        Response response = cqList.listSetAsDone(rank - 1);
+        ui.constructMessage(response.getMessage());
+        return response;
     }
 
     /**
@@ -157,7 +161,9 @@ public class Cq {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsNotDone(int rank) {
-        return new Response(ui.constructMessage(cqList.listSetAsNotDone(rank - 1)));
+        Response response = cqList.listSetAsNotDone(rank - 1);
+        ui.constructMessage(response.getMessage());
+        return response;
     }
 
     /**
