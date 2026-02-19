@@ -11,7 +11,7 @@ import speed.ui.Ui;
  * with Cq chatbot through a command-line interface.
  */
 public class ChatbotApp {
-    private Speed bot;
+    private final Speed bot;
 
     /**
      * Constructs a new ChatbotApp instance.
@@ -21,7 +21,6 @@ public class ChatbotApp {
     public ChatbotApp(Speed bot) {
         this.bot = bot;
         Ui.showHeader();
-        this.bot.greet();
     }
 
     /**

@@ -23,7 +23,7 @@ public class Speed {
     private final Ui ui;
     private final String name;
     private final Storage storage;
-    private final TaskList cqList;
+    private final TaskList taskList;
 
     /**
      * Constructs a new Cq chatbot with default settings and loads
@@ -32,7 +32,7 @@ public class Speed {
     public Speed() {
         this.name = "Speed";
         this.storage = new Storage();
-        this.cqList = new TaskList(storage.loadDataFromFile());
+        this.taskList = new TaskList(storage.loadDataFromFile());
         this.ui = new Ui();
     }
 
@@ -50,7 +50,7 @@ public class Speed {
      * Says goodbye to the user and saves tasks to storage.
      */
     public Response bye() {
-        this.storage.linesToFile(cqList.getList());
+        this.storage.linesToFile(taskList.getList());
         String message = "Bye. Hope to see you again soon!";
         Platform.exit();
         return new Response(ui.constructMessage(message));
@@ -62,7 +62,7 @@ public class Speed {
      * @param userInput the task description
      */
     public String addToDoToList(String userInput) {
-        String message = cqList.addToDoItem(userInput);
+        String message = taskList.addToDoItem(userInput);
         assert !message.isEmpty();
         return ui.constructMessage(message);
     }
@@ -73,7 +73,7 @@ public class Speed {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response removeTaskFromList(int rank) {
-        Response response = cqList.removeByRank(rank - 1);
+        Response response = taskList.removeByRank(rank - 1);
         ui.constructMessage(response.getMessage());
         return response;
     }
@@ -87,7 +87,7 @@ public class Speed {
     public Response addDeadlineToList(String userInput, String deadLine) {
         try {
             LocalDate deadLineDate = extractDate(deadLine);
-            String message = cqList.addDeadlineItem(userInput, deadLineDate);
+            String message = taskList.addDeadlineItem(userInput, deadLineDate);
             ui.constructMessage(message);
             return new Response(message);
         } catch (InvalidInputException e) {
@@ -109,10 +109,10 @@ public class Speed {
             LocalDate endDate = extractDate(end);
 
             if (endDate.isBefore(startDate)) {
-                throw new InvalidInputException("End date cannot be before start date!"); // change to respond.
+                throw new InvalidInputException("End date cannot be before start date!");
             }
 
-            String message = cqList.addEventItem(userInput, startDate, endDate);
+            String message = taskList.addEventItem(userInput, startDate, endDate);
             ui.constructMessage(message);
             return new Response(message);
 
@@ -142,7 +142,7 @@ public class Speed {
      */
     public Response listItems() {
         String message = "Here are the tasks in your list:\n";
-        message += cqList.toString();
+        message += taskList.toString();
         return new Response(ui.constructMessage(message));
     }
 
@@ -152,7 +152,7 @@ public class Speed {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsDone(int rank) {
-        Response response = cqList.listSetAsDone(rank - 1);
+        Response response = taskList.listSetAsDone(rank - 1);
         ui.constructMessage(response.getMessage());
         return response;
     }
@@ -163,7 +163,7 @@ public class Speed {
      * @param rank the 1 indexed position of the task in the list
      */
     public Response markAsNotDone(int rank) {
-        Response response = cqList.listSetAsNotDone(rank - 1);
+        Response response = taskList.listSetAsNotDone(rank - 1);
         ui.constructMessage(response.getMessage());
         return response;
     }
@@ -184,7 +184,7 @@ public class Speed {
      */
     public Response findTask(String keyWord) {
         String message = "Here are the matching tasks in your list:\n";
-        message += cqList.findMatchedTasks(keyWord);
+        message += taskList.findMatchedTasks(keyWord);
         return new Response(ui.constructMessage(message));
     }
 
@@ -196,7 +196,7 @@ public class Speed {
     public Response showSchedule(String date) {
         try {
             String message = "Here are the tasks on " + date + ":\n";
-            message += cqList.findMatchedTasksToDate(date);
+            message += taskList.findMatchedTasksToDate(date);
             return new Response(ui.constructMessage(message));
         } catch (DateTimeParseException e) {
             String message = "Invalid date format! Please use YYYY-MM-DD.";

@@ -16,4 +16,4 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-/data/cq.txt
+/data/speed.txt

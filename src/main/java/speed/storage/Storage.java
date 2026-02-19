@@ -20,7 +20,7 @@ import speed.task.ToDoTask;
  */
 public class Storage {
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH = "./data/cq.txt";
+    private static final String FILE_PATH = "./data/speed.txt";
 
     /**
      * Loads tasks from the storage file.
