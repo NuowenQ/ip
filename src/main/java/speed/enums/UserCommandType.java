@@ -1,4 +1,4 @@
-package cq.enums;
+package speed.enums;
 
 /**
  * Represents the command types the chatbot can process.

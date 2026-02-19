@@ -1,24 +1,24 @@
-package cq;
+package speed;
 
-import cq.enums.UserCommandType;
-import cq.exceptions.InvalidInputException;
-import cq.messages.Response;
-import cq.parser.Parser;
-import cq.ui.Ui;
+import speed.enums.UserCommandType;
+import speed.exceptions.InvalidInputException;
+import speed.messages.Response;
+import speed.parser.Parser;
+import speed.ui.Ui;
 
 /**
  * Main application class which handles user interaction
  * with Cq chatbot through a command-line interface.
  */
 public class ChatbotApp {
-    private Cq bot;
+    private Speed bot;
 
     /**
      * Constructs a new ChatbotApp instance.
      * Initializes the chatbot engine and sets up the input scanner
      * for reading user input from the console.
      */
-    public ChatbotApp(Cq bot) {
+    public ChatbotApp(Speed bot) {
         this.bot = bot;
         Ui.showHeader();
         this.bot.greet();
@@ -35,20 +35,15 @@ public class ChatbotApp {
      * Parses the user input into a command type and processes it accordingly.
      */
     public Response run(String input) {
-        String[] inputs = input.split(" ");
         UserCommandType command = Parser.parse(input);
         try {
             return switch (command) {
             case BYE -> this.bot.bye();
             case LIST -> this.bot.listItems();
-            case MARK -> bot.markAsDone(Integer.parseInt(inputs[1]));
-            case UNMARK -> bot.markAsNotDone(Integer.parseInt(inputs[1]));
-            case DELETE -> bot.removeTaskFromList(Integer.parseInt(inputs[1]));
+            case MARK, UNMARK, DELETE, FIND, VIEW_SCHEDULES -> bot.handleSingleArgCommand(input, command);
             case TODO -> bot.handleTodo(input);
             case DEADLINE -> bot.handleDeadline(input);
             case EVENT -> bot.handleEvent(input);
-            case FIND -> bot.findTask(inputs[1]);
-            case VIEW_SCHEDULES -> bot.showSchedule(inputs[1]);
             case INVALID -> throw new InvalidInputException("Invalid input! :(");
             default -> throw new IllegalStateException("Unhandled command type: " + command);
             };

@@ -1,4 +1,4 @@
-package cq;
+package speed;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cq.task.TaskList;
+import speed.task.TaskList;
 
 public class TaskListTest {
 

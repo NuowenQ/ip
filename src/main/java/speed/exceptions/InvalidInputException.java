@@ -1,4 +1,4 @@
-package cq.exceptions;
+package speed.exceptions;
 /**
  * Exception thrown when a user enters an unrecognized command or invalid input.
  */

@@ -1,7 +1,5 @@
-package cq.ui;
+package speed.ui;
 
-import cq.ChatbotApp;
-import cq.messages.Response;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import speed.ChatbotApp;
+import speed.messages.Response;
+
 /**
  * Controller for the main GUI.
  */

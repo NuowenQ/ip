@@ -1,8 +1,8 @@
-package cq.task;
+package speed.task;
 
 import java.time.LocalDate;
 
-import cq.enums.TaskType;
+import speed.enums.TaskType;
 
 /**
  * Represents a task that spans a period of time with a start and end date.

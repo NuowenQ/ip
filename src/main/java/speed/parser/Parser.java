@@ -1,6 +1,6 @@
-package cq.parser;
+package speed.parser;
 
-import cq.enums.UserCommandType;
+import speed.enums.UserCommandType;
 
 /**
  * A Parser class that identifies user command types.

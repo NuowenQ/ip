@@ -1,8 +1,8 @@
-package cq.task;
+package speed.task;
 
 import java.time.LocalDate;
 
-import cq.enums.TaskType;
+import speed.enums.TaskType;
 
 /**
  * A class that represents a deadline task.

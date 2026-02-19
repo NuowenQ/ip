@@ -1,21 +1,21 @@
-package cq;
+package speed;
 
 import java.io.IOException;
 
-import cq.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import speed.ui.MainWindow;
 
 /**
  * Entry point for the Cq chatbot application.
  */
 public class Main extends Application {
 
-    private Cq bot = new Cq();
+    private Speed bot = new Speed();
 
     @Override
     public void start(Stage stage) {

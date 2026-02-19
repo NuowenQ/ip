@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("cq.Launcher")
+    mainClass.set("speed.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'cq.jar'
+    archiveFileName = 'speed.jar'
 }
 
 run{

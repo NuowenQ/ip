@@ -1,10 +1,10 @@
-package cq;
+package speed;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import cq.task.ToDoTask;
+import speed.task.ToDoTask;
 
 public class ToDoTaskTest {
 

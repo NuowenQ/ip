@@ -1,10 +1,10 @@
-package cq.task;
+package speed.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import cq.enums.TaskType;
+import speed.enums.TaskType;
 
 /**
  * Abstract base class representing a task in the chatbot application.

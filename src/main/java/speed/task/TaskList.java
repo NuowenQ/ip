@@ -1,13 +1,13 @@
-package cq.task;
+package speed.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import cq.enums.TaskType;
-import cq.exceptions.InvalidInputException;
-import cq.messages.Response;
+import speed.enums.TaskType;
+import speed.exceptions.InvalidInputException;
+import speed.messages.Response;
 
 /**
  * A class that stores a list of tasks.

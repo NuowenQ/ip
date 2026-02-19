@@ -1,4 +1,4 @@
-package cq.storage;
+package speed.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,11 +8,11 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import cq.enums.TaskType;
-import cq.task.DeadlineTask;
-import cq.task.EventTask;
-import cq.task.Task;
-import cq.task.ToDoTask;
+import speed.enums.TaskType;
+import speed.task.DeadlineTask;
+import speed.task.EventTask;
+import speed.task.Task;
+import speed.task.ToDoTask;
 
 /**
  * Handles loading and saving tasks to storage.

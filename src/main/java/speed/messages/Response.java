@@ -1,4 +1,4 @@
-package cq.messages;
+package speed.messages;
 
 /**
  * Class for storing respond status from the user

@@ -1,4 +1,4 @@
-package cq.ui;
+package speed.ui;
 
 import java.io.IOException;
 import java.util.Collections;

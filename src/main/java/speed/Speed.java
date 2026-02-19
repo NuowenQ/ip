@@ -1,23 +1,25 @@
-package cq;
+package speed;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cq.exceptions.IncompleteDescriptionException;
-import cq.exceptions.InvalidInputException;
-import cq.messages.Response;
-import cq.storage.Storage;
-import cq.task.Task;
-import cq.task.TaskList;
-import cq.ui.Ui;
 import javafx.application.Platform;
+import speed.enums.UserCommandType;
+import speed.exceptions.IncompleteDescriptionException;
+import speed.exceptions.InvalidInputException;
+import speed.messages.Response;
+import speed.storage.Storage;
+import speed.task.Task;
+import speed.task.TaskList;
+import speed.ui.Ui;
+
 
 /**
  * A class that represents the chatbot itself, providing APIs to resolve tasks.
  */
-public class Cq {
+public class Speed {
     private final Ui ui;
     private final String name;
     private final Storage storage;
@@ -27,7 +29,7 @@ public class Cq {
      * Constructs a new Cq chatbot with default settings and loads
      * existing tasks from storage.
      */
-    public Cq() {
+    public Speed() {
         this.name = "Speed";
         this.storage = new Storage();
         this.cqList = new TaskList(storage.loadDataFromFile());
@@ -250,6 +252,44 @@ public class Cq {
                 throw new IncompleteDescriptionException("Incorrect description format for event task!");
             }
             return addEventToList(subStrings[0], subStrings[1], subStrings[2]);
+        } catch (IncompleteDescriptionException e) {
+            showMessage(e.getMessage());
+            return new Response(e.getMessage(), true);
+        }
+    }
+
+    /**
+     * Verify input quality
+     * @param input user input in string format
+     * @return return the trim input for further processing
+     * @throws IncompleteDescriptionException showing user it is a incorrect format
+     */
+    public String verifyIndexTypeTask(String input) throws IncompleteDescriptionException {
+        String[] parts = input.trim().split("\\s+");
+        if (parts.length != 2 || parts[1].isEmpty()) {
+            throw new IncompleteDescriptionException("Incorrect format !");
+        }
+
+        return parts[1].trim();
+    }
+
+    /**
+     * Handles commands that take a single argument (mark, unmark, delete, find, view_schedule).
+     *
+     * @param input the raw user input string
+     * @param command the parsed command type
+     */
+    public Response handleSingleArgCommand(String input, UserCommandType command) {
+        try {
+            String arg = verifyIndexTypeTask(input);
+            return switch (command) {
+            case MARK -> markAsDone(Integer.parseInt(arg));
+            case UNMARK -> markAsNotDone(Integer.parseInt(arg));
+            case DELETE -> removeTaskFromList(Integer.parseInt(arg));
+            case FIND -> findTask(arg);
+            case VIEW_SCHEDULES -> showSchedule(arg);
+            default -> throw new IllegalStateException("Unhandled command: " + command);
+            };
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
             return new Response(e.getMessage(), true);

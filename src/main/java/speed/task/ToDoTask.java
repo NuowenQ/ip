@@ -1,6 +1,6 @@
-package cq.task;
+package speed.task;
 
-import cq.enums.TaskType;
+import speed.enums.TaskType;
 
 /**
  * A class that represents a Todo task.
