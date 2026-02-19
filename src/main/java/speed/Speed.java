@@ -293,6 +293,10 @@ public class Speed {
         } catch (IncompleteDescriptionException e) {
             showMessage(e.getMessage());
             return new Response(e.getMessage(), true);
+        } catch (NumberFormatException e) {
+            String message = "Please provide a valid task number!";
+            showMessage(message);
+            return new Response(message, true);
         }
     }
 }
