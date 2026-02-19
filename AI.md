@@ -3,12 +3,19 @@
 **Model:** Claude (Claude Code)
 
 **Purpose:**
-- Generated and refined user guide content
-- Refined AI.md content
-- Check Program quality and look for bugs
+- Generate and refine user guide content
+- Refine `AI.md` content
+- Check program quality and look for bugs
+- Fix trivial issues
 
-**Issues:**
-- Unaware of coding standard, sometimes produce repetitive programs
+**Issues with Claude:**
+- Unaware of coding standards
+- Sometimes produces repetitive programs
 
-**Programs with AI:**
-- Class speed: handleSingleArgCommand
+**What works:**
+- Refine Git-flavored Markdown files
+- Check for small issues like leftover comments
+
+**Programs Assisted by AI:**
+- Class: `Speed`
+    - Method: `handleSingleArgCommand` – Handles single argument commands efficiently
