@@ -194,9 +194,15 @@ public class Speed {
      * @param date The date used to search for matching tasks.
      */
     public Response showSchedule(String date) {
-        String message = "Here are the tasks on " + date + ":\n";
-        message += cqList.findMatchedTasksToDate(date);
-        return new Response(ui.constructMessage(message));
+        try {
+            String message = "Here are the tasks on " + date + ":\n";
+            message += cqList.findMatchedTasksToDate(date);
+            return new Response(ui.constructMessage(message));
+        } catch (DateTimeParseException e) {
+            String message = "Invalid date format! Please use YYYY-MM-DD.";
+            showMessage(message);
+            return new Response(message, true);
+        }
     }
 
     /**
